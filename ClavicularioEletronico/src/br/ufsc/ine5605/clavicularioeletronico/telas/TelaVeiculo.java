@@ -16,5 +16,5 @@ public class TelaVeiculo extends TelaCadastro {
     public void exibeTelaExclui() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

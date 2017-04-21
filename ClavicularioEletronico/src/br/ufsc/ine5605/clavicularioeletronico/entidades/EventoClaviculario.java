@@ -5,12 +5,12 @@ import java.util.Calendar;
 
 public class EventoClaviculario {
 
-	private Evento evento;
+    private Evento evento;
 
-	private Calendar datahora;
+    private Calendar datahora;
 
-	private int matricula;
+    private int matricula;
 
-	private String placa;
+    private String placa;
 
 }
