@@ -5,6 +5,8 @@
  */
 package br.ufsc.ine5605.clavicularioeletronico;
 
+import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorSistema;
+
 /**
  *
  * @author Flávio
@@ -15,7 +17,7 @@ public class ClavicularioEletronico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ControladorSistema.getInstance().inicia();
     }
     
 }

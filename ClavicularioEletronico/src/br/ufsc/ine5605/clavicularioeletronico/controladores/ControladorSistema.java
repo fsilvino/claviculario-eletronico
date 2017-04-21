@@ -1,37 +1,46 @@
 package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
+import br.ufsc.ine5605.clavicularioeletronico.telas.TelaSistema;
+
+/**
+ *
+ * @author Flávio
+ */
 public class ControladorSistema {
 
-	private static ControladorSistema instancia;
+    private static ControladorSistema instancia;
+    
+    private TelaSistema tela;
+    
+    private ControladorSistema() {
+        tela = new TelaSistema();
+    }
 
-	private ControladorVeiculo controladorVeiculo;
+    public static ControladorSistema getInstance() {
+        if (instancia == null) {
+            instancia = new ControladorSistema();
+        }
+        return instancia;
+    }
 
-	private ControladorClaviculario controladorClaviculario;
+    public void inicia() {
+        this.exibeMenuInicial();
+    }
 
-	private ControladorFuncionario controladorFuncionario;
+    public void exibeMenuInicial() {
+        tela.exibeMenu();
+    }
 
-	public static ControladorSistema getInstance() {
-		return null;
-	}
+    public void abreCadastroVeiculo() {
+        ControladorVeiculo.getInstance().inicia();
+    }
 
-	public void inicia() {
+    public void abreCadastroFuncionario() {
+        ControladorFuncionario.getInstance().inicia();
+    }
 
-	}
-
-	private void exibeMenuInicial() {
-
-	}
-
-	private void abreCadastroVeiculo() {
-
-	}
-
-	private void abreCadastroFuncionario() {
-
-	}
-
-	private void abreClaviculario() {
-
-	}
+    public void abreClaviculario() {
+        ControladorClaviculario.getInstance().inicia();
+    }
 
 }

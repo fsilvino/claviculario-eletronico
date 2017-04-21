@@ -1,9 +1,13 @@
-package br.ufsc.ine5605.clavicularioeletronico.entidades;
+package br.ufsc.ine5605.clavicularioeletronico.transferencias;
 
-import java.util.Date;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
+import java.util.Date;
 
-public class Funcionario {
+/**
+ *
+ * @author Flávio
+ */
+public class DadosFuncionario {
 
     private int matricula;
 
@@ -13,9 +17,22 @@ public class Funcionario {
 
     private String telefone;
 
+    private Cargo cargo;
+
     private boolean bloqueado;
 
-    private Cargo cargo;
+    public DadosFuncionario() {
+        
+    }
+    
+    public DadosFuncionario(int matricula, String nome, Date nascimento, String telefone, Cargo cargo, boolean bloqueado) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.telefone = telefone;
+        this.cargo = cargo;
+        this.bloqueado = bloqueado;
+    }
 
     public int getMatricula() {
         return matricula;
@@ -49,20 +66,20 @@ public class Funcionario {
         this.telefone = telefone;
     }
 
-    public boolean isBloqueado() {
-        return bloqueado;
-    }
-
-    public void setBloqueado(boolean bloqueado) {
-        this.bloqueado = bloqueado;
-    }
-
     public Cargo getCargo() {
         return cargo;
     }
 
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
+    }
+
+    public boolean getBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
     }
 
 }

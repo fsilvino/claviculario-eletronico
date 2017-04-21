@@ -1,6 +1,10 @@
-package br.ufsc.ine5605.clavicularioeletronico.entidades;
+package br.ufsc.ine5605.clavicularioeletronico.transferencias;
 
-public class Veiculo {
+/**
+ *
+ * @author Flávio
+ */
+public class DadosVeiculo {
 
     private String placa;
 
@@ -11,6 +15,18 @@ public class Veiculo {
     private int ano;
 
     private int quilometragemAtual;
+
+    public DadosVeiculo() {
+
+    }
+
+    public DadosVeiculo(String placa, String modelo, String marca, int ano, int quilometragemAtual) {
+        this.placa = placa;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.ano = ano;
+        this.quilometragemAtual = quilometragemAtual;
+    }
 
     public String getPlaca() {
         return placa;
@@ -51,5 +67,5 @@ public class Veiculo {
     public void setQuilometragemAtual(int quilometragemAtual) {
         this.quilometragemAtual = quilometragemAtual;
     }
-    
+
 }
