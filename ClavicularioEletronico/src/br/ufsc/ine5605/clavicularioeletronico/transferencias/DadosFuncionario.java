@@ -4,7 +4,8 @@ import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import java.util.Date;
 
 /**
- *
+ * Classe que encapsula os dados a serem enviados pela tela ao controlador
+ * (Data Transfer Object)
  * @author Flávio
  */
 public class DadosFuncionario {

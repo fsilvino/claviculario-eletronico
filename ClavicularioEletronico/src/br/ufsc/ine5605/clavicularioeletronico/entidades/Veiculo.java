@@ -51,5 +51,5 @@ public class Veiculo {
     public void setQuilometragemAtual(int quilometragemAtual) {
         this.quilometragemAtual = quilometragemAtual;
     }
-    
+
 }

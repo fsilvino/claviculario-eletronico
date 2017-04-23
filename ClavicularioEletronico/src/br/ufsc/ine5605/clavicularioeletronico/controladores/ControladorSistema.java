@@ -3,7 +3,8 @@ package br.ufsc.ine5605.clavicularioeletronico.controladores;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaSistema;
 
 /**
- *
+ * Controlador principal do sistema, controla o menu principal e 
+ * chama os demais controladores
  * @author Flávio
  */
 public class ControladorSistema {
@@ -41,6 +42,10 @@ public class ControladorSistema {
 
     public void abreClaviculario() {
         ControladorClaviculario.getInstance().inicia();
+    }
+    
+    public void abreCadastroPermissaoUsoVeiculo() {
+        ControladorPermissaoUsoVeiculo.getInstance().inicia();
     }
 
 }
