@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Classe base para os controladores de cadastros,
+ * implementa as funcões básicas de cadastro (CRUD)
  * @author Flávio
+ * @param <T> Tipo da Tela que sera utilizada
+ * @param <E> Tipo de entidade a ser cadastrada
  */
-public abstract class ControladorCadastro<C> {
+public abstract class ControladorCadastro<T extends TelaCadastro, E> {
 
-    protected TelaCadastro tela;
-    protected List<C> itens;
+    protected T tela;
+    protected List<E> itens;
 
     public ControladorCadastro() {
         itens = new ArrayList<>();

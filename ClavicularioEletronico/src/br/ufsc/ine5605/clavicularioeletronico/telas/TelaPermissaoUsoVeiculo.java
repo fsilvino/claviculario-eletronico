@@ -1,6 +1,10 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
-public class TelaVeiculo extends TelaCadastro {
+/**
+ *
+ * @author Flávio
+ */
+public class TelaPermissaoUsoVeiculo extends TelaCadastro {
 
     @Override
     public void exibeTelaInclui() {
@@ -14,6 +18,14 @@ public class TelaVeiculo extends TelaCadastro {
 
     @Override
     public void exibeTelaExclui() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Método usado para solicitar a matrícula do funcionário para imprimir a
+     * lista
+     */
+    public void abreTelaLista() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

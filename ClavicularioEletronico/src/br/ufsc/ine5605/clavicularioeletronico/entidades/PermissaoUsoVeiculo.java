@@ -3,7 +3,7 @@ package br.ufsc.ine5605.clavicularioeletronico.entidades;
 import java.security.InvalidParameterException;
 
 /**
- *
+ * Define a permissão de uso de um veículo por um funcionário
  * @author Flávio
  */
 public class PermissaoUsoVeiculo {
