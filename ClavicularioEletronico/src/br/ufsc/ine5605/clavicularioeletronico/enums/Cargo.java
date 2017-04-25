@@ -8,6 +8,7 @@ public enum Cargo {
 
     DIRETORIA,
     PIAO,
-    MOTORISTA;
+    MOTORISTA,
+    SECRETARIA;
 
 }
