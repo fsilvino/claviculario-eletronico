@@ -52,7 +52,7 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     public void inclui(int matricula, String placa) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
-        if (funcionario.getCargo().equals(Cargo.DIRETORIA)) {
+        if (funcionario.getCargo() == Cargo.DIRETORIA) {
             throw new Exception("Este funcionario tem acesso a todos os veiculos pois seu cargo eh de diretoria.\n" +
                                 "Nao sera possivel cadastrar os veiculos nesta opcao.");
         }
@@ -82,7 +82,7 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     public void exibeListaPermissoes(int matricula) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
-        if (funcionario.getCargo().equals(Cargo.DIRETORIA)) {
+        if (funcionario.getCargo() == Cargo.DIRETORIA) {
             throw new CadastroInvalidoPermissaoUsoVeiculoDiretoria();
         }
         
@@ -107,7 +107,7 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     private PermissaoUsoVeiculo findPermissaoUsoVeiculo(int matricula, String placa) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
-        if (funcionario.getCargo().equals(Cargo.DIRETORIA)) {
+        if (funcionario.getCargo() == Cargo.DIRETORIA) {
             throw new CadastroInvalidoPermissaoUsoVeiculoDiretoria();
         }
         
