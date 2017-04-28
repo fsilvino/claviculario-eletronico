@@ -16,6 +16,8 @@ public class Funcionario {
     private boolean bloqueado;
 
     private Cargo cargo;
+    
+    public String endereco;
 
     public int getMatricula() {
         return matricula;
