@@ -89,7 +89,7 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         List<ItemListaCadastro> lista = new ArrayList<>();
         for (PermissaoUsoVeiculo permissao : itens) {
             if (permissao.getFuncionario().getMatricula() == matricula) {
-                lista.add(new ItemListaCadastro(permissao.getFuncionario().getNome()));
+                lista.add(new ItemListaCadastro(String.format("{0}\t{1}", permissao.getVeiculo().getPlaca(), permissao.getVeiculo().getModelo())));
             }
         }
         tela.exibeLista(lista);
