@@ -6,6 +6,11 @@ package br.ufsc.ine5605.clavicularioeletronico.enums;
  */
 public enum Evento {
 
-    ;
+    ACESSO_PERMITIDO,
+    MATRICULA_INVALIDA,
+    PERMISSAO_INSUFICIENTE,
+    VEICULO_INDISPONIVEL,
+    ACESSO_BLOQUEADO,
+    VEICULO_DEVOLVIDO;
 
 }
