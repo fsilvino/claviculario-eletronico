@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.entidades.EventoClaviculario;
+import br.ufsc.ine5605.clavicularioeletronico.entidades.SaidaVeiculo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,11 @@ public class ControladorClaviculario {
     private static ControladorClaviculario instancia;
 
     private List<EventoClaviculario> log;
+    private List<SaidaVeiculo> veiculosFora;
     
     private ControladorClaviculario() {
         log = new ArrayList<>();
+        veiculosFora = new ArrayList();
     }
 
     public static ControladorClaviculario getInstance() {
