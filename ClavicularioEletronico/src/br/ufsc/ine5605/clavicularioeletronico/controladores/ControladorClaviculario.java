@@ -24,10 +24,12 @@ public class ControladorClaviculario {
 
     private List<EventoClaviculario> log;
     private List<SaidaVeiculo> veiculosFora;
+    private TelaClaviculario tela;
     
     private ControladorClaviculario() {
         log = new ArrayList<>();
         veiculosFora = new ArrayList();
+        tela = new TelaClaviculario();
     }
 
     public static ControladorClaviculario getInstance() {
@@ -38,16 +40,17 @@ public class ControladorClaviculario {
     }
 
     public void inicia() {
-        //tela claviculario eletronico
+        
        // retirar chave, devolver chave
        //relatorio de acessos
     }
     
-    public boolean retirarChave(int matricula) throws Exception {
+    public boolean retirarChave(int matricula, String placa) throws Exception {
         
         //validar matricula
-        //Como saber o carro que o diretor escolheu?
+        
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
+        Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
             //diretor
         if (funcionario.getCargo() == Cargo.DIRETORIA) {
             if (this.disponibilidadeVeiculo(placa)) {
@@ -71,8 +74,7 @@ public class ControladorClaviculario {
             this.novoEvento(Evento.PERMISSAO_INSUFICIENTE, matricula, "");
             return false;
         } else {
-            String placa = tela.PedePlaca();   ///verificar tela
-            Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
+           // String veiculoEscolhido = tela.PedePlaca();   ///verificar tela
                 if (!this.disponibilidadeVeiculo(placa)) {
                      this.novoEvento(Evento.VEICULO_INDISPONIVEL, matricula, placa);
                      return false;
@@ -119,18 +121,5 @@ public class ControladorClaviculario {
         SaidaVeiculo novaSaida = new SaidaVeiculo(veiculo, funcionario, dataHora);
         this.veiculosFora.add(novaSaida);
         
-    }
-    
-    /*
-    private boolean validaMatricula(int matricula) {
-        try { 
-            Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);   
-        } catch (MatriculaNaoCadastradaException e) {
-            throw e;
-        }
-    }
-    */
-    
-    
-    
+    } 
 }
