@@ -9,7 +9,7 @@ import br.ufsc.ine5605.clavicularioeletronico.telas.TelaSistema;
  */
 public class ControladorSistema {
 
-    private static ControladorSistema instancia;
+    private static ControladorSistema instance;
     
     private TelaSistema tela;
     
@@ -18,10 +18,10 @@ public class ControladorSistema {
     }
 
     public static ControladorSistema getInstance() {
-        if (instancia == null) {
-            instancia = new ControladorSistema();
+        if (instance == null) {
+            instance = new ControladorSistema();
         }
-        return instancia;
+        return instance;
     }
 
     public void inicia() {

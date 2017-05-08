@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPermissaoUsoVeiculo, PermissaoUsoVeiculo> {
     
-    private static ControladorPermissaoUsoVeiculo instancia;
+    private static ControladorPermissaoUsoVeiculo instance;
     
     private ControladorPermissaoUsoVeiculo() {
         super();
@@ -25,10 +25,10 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     }
     
     public static ControladorPermissaoUsoVeiculo getInstance() {
-        if (instancia == null) {
-            instancia = new ControladorPermissaoUsoVeiculo();
+        if (instance == null) {
+            instance = new ControladorPermissaoUsoVeiculo();
         }
-        return instancia;
+        return instance;
     }
 
     @Override
@@ -131,5 +131,5 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         }
         return permissoes;
     }
-    
+  
 }

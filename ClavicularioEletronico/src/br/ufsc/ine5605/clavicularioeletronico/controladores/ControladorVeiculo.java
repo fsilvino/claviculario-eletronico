@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo> {
 
-    private static ControladorVeiculo instancia;
+    private static ControladorVeiculo instance;
 
     private ControladorVeiculo() {
         super();
@@ -23,10 +23,10 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
     }
 
     public static ControladorVeiculo getInstance() {
-        if (instancia == null) {
-            instancia = new ControladorVeiculo();
+        if (instance == null) {
+            instance = new ControladorVeiculo();
         }
-        return instancia;
+        return instance;
     }
 
     /**

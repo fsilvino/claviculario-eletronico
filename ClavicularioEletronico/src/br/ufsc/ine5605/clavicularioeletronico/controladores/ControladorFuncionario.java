@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario, Funcionario> {
 
-    private static ControladorFuncionario instancia;
+    private static ControladorFuncionario instance;
 
     private ControladorFuncionario() {
         super();
@@ -23,10 +23,10 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
     }
 
     public static ControladorFuncionario getInstance() {
-        if (instancia == null) {
-            instancia = new ControladorFuncionario();
+        if (instance == null) {
+            instance = new ControladorFuncionario();
         }
-        return instancia;
+        return instance;
     }
     
     /**
