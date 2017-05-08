@@ -6,19 +6,34 @@ import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 public class Funcionario {
 
     private int matricula;
-
     private String nome;
-
     private Date nascimento;
-
     private String telefone;
-
     private boolean bloqueado;
-
     private Cargo cargo;
-    
-    public String endereco;
+    private String endereco;
+    private int numeroTentativasSemPermissao;
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public void incrementaNumeroTentativasSemPermissao() {
+        this.numeroTentativasSemPermissao++;
+    }
+
+    public void resetNumeroTentativasSemPermissao(int numeroTentativasSemPermissao) {
+        this.numeroTentativasSemPermissao = 0;
+    }
+
+    public int getNumeroTentativasSemPermissao() {
+        return numeroTentativasSemPermissao;
+    }
+    
     public int getMatricula() {
         return matricula;
     }
