@@ -120,6 +120,16 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         return findPermissaoUsoVeiculo(funcionario, veiculo) != null;
     }
     
-    
-    
+    public List getPermissoes(Funcionario funcionario) {
+        
+        List<PermissaoUsoVeiculo> permissoes = new ArrayList();
+        
+        for (PermissaoUsoVeiculo permissao : itens) {
+            if(permissao.getFuncionario().equals(funcionario)) {
+                permissoes.add(permissao);
+            } 
+        }
+        return permissoes;
+    }
+  
 }
