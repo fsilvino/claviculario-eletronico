@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ControladorClaviculario {
 
-    private static ControladorClaviculario instancia;
+    private static ControladorClaviculario instance;
 
     private List<EventoClaviculario> log;
     
@@ -21,10 +21,10 @@ public class ControladorClaviculario {
     }
 
     public static ControladorClaviculario getInstance() {
-        if (instancia == null) {
-            instancia = new ControladorClaviculario();
+        if (instance == null) {
+            instance = new ControladorClaviculario();
         }
-        return instancia;
+        return instance;
     }
 
     public void inicia() {
