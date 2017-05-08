@@ -120,6 +120,6 @@ public class ControladorClaviculario {
         Calendar dataHora = Calendar.getInstance();         //verificar como pegar a hora
         SaidaVeiculo novaSaida = new SaidaVeiculo(veiculo, funcionario, dataHora);
         this.veiculosFora.add(novaSaida);
-        
+      //teste  
     } 
 }
