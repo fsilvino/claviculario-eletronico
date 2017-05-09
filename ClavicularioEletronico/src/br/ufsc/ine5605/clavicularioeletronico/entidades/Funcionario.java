@@ -26,7 +26,7 @@ public class Funcionario {
         this.numeroTentativasSemPermissao++;
     }
 
-    public void resetNumeroTentativasSemPermissao(int numeroTentativasSemPermissao) {
+    public void resetNumeroTentativasSemPermissao() {
         this.numeroTentativasSemPermissao = 0;
     }
 

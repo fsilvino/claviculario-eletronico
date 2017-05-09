@@ -1,3 +1,4 @@
+/*
 package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.entidades.EventoClaviculario;
@@ -17,24 +18,23 @@ import java.util.List;
  * a liberação e a recepção das chaves conforme as configurações
  * do sistema e salva o log de eventos
  * @author Flávio
- */
-public class ControladorClaviculario {
+ 
+public class ControladorClavicularioTeste {
 
-    private static ControladorClaviculario instance;
-    private 
+    private static ControladorClavicularioTeste instance;
     private List<EventoClaviculario> log;
     private List<SaidaVeiculo> veiculosFora;
     private TelaClaviculario tela;
     
-    private ControladorClaviculario() {
+    private ControladorClavicularioTeste() {
         log = new ArrayList<>();
         veiculosFora = new ArrayList();
         tela = new TelaClaviculario();
     }
 
-    public static ControladorClaviculario getInstance() {
+    public static ControladorClavicularioTeste getInstance() {
         if (instance == null) {
-            instance = new ControladorClaviculario();
+            instance = new ControladorClavicularioTeste();
         }
         return instance;
     }
@@ -110,11 +110,9 @@ public class ControladorClaviculario {
     private boolean veiculoDisponivel(String placa) {
         
         for (SaidaVeiculo veiculoFora : veiculosFora) {
-            if ((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
-                return false;
-            }
+            return (veiculoFora.getVeiculo().getPlaca().equals(placa));
         }
-        return true;
+        return false;
     }
     
     private void novoEvento(Evento evento, int matricula, String placa) {
@@ -131,3 +129,4 @@ public class ControladorClaviculario {
         this.novoEvento(Evento.ACESSO_PERMITIDO, funcionario.getMatricula(), veiculo.getPlaca());
     } 
 }
+*/
