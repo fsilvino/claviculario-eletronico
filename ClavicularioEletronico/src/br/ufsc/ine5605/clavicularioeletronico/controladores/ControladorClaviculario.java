@@ -1,3 +1,4 @@
+
 package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.entidades.EventoClaviculario;
@@ -6,7 +7,6 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.SaidaVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
-import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaClaviculario;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,23 +17,24 @@ import java.util.List;
  * a liberação e a recepção das chaves conforme as configurações
  * do sistema e salva o log de eventos
  * @author Flávio
- */
-public class ControladorClaviculario {
+ * **/
+ 
+public class ControladorClavicularioTeste {
 
-    private static ControladorClaviculario instance; 
+    private static ControladorClavicularioTeste instance;
     private List<EventoClaviculario> log;
     private List<SaidaVeiculo> veiculosFora;
     private TelaClaviculario tela;
     
-    private ControladorClaviculario() {
+    private ControladorClavicularioTeste() {
         log = new ArrayList<>();
         veiculosFora = new ArrayList();
         tela = new TelaClaviculario();
     }
 
-    public static ControladorClaviculario getInstance() {
+    public static ControladorClavicularioTeste getInstance() {
         if (instance == null) {
-            instance = new ControladorClaviculario();
+            instance = new ControladorClavicularioTeste();
         }
         return instance;
     }
@@ -48,49 +49,44 @@ public class ControladorClaviculario {
         
         int matricula = tela.pedeMatricula();
         if (matricula == 0) {
+            this.novoEvento(Evento.MATRICULA_INVALIDA, matricula, "");
             throw new Exception("Matricula inválida");
         }
-            //Diretores
+
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
-        
-            //diretor
-        if (funcionario.getCargo() == Cargo.DIRETORIA) {
-            String placa = tela.pedePlaca();
-            Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
-            if (this.veiculoDisponivel(placa)) {
-                this.novaSaida(veiculo, funcionario);
-                
-                return;
-            } else {
-                this.novoEvento(Evento.VEICULO_INDISPONIVEL, matricula, placa);
-                throw new Exception("Veiculo indisponivel no momento");
-            }
-        }
-            //Funcionarios
-            
-        List permissoes = ControladorPermissaoUsoVeiculo.getInstance().getPermissoes(funcionario);
-                
+               
         if (funcionario.isBloqueado()) {
+            this.novoEvento(Evento.USUARIO_BLOQUEADO, matricula, "");
             throw new Exception("Usuario encontra-se bloqueado!");
-        } 
-         
-        //tentativas
-        if (permissoes.isEmpty()) {
-            funcionario.incrementaNumeroTentativasSemPermissao();
-            this.novoEvento(Evento.PERMISSAO_INSUFICIENTE, matricula, "");
-            throw new Exception("Voce nao possui permissoes de acesso a este veiculo!"); //(1/3)
-        } else {
-            String placaVeiculoEscolhido = tela.pedePlaca();   
-                if (!this.veiculoDisponivel(placaVeiculoEscolhido)) {
-                     this.novoEvento(Evento.VEICULO_INDISPONIVEL, matricula, placaVeiculoEscolhido);
-                     throw new Exception("Veiculo indisponivel no momento");
+        }
+ 
+        String placa = tela.pedePlaca();
+        Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
+        
+        if (this.veiculoDisponivel(placa)) {
+            if (funcionario.getCargo() != Cargo.DIRETORIA) {
+                
+                List permissoes = ControladorPermissaoUsoVeiculo.getInstance().getPermissoes(funcionario);
+                
+                if (funcionario.getNumeroTentativasSemPermissao() >= 3) {
+                    funcionario.setBloqueado(true);
+                    this.novoEvento(Evento.ACESSO_BLOQUEADO, matricula, placa);
+                    throw new Exception("Usuario bloqueado por excesso de tentativas!");
+                    
+                } else if (permissoes.isEmpty()) {
+                    funcionario.incrementaNumeroTentativasSemPermissao();
+                    this.novoEvento(Evento.PERMISSAO_INSUFICIENTE, matricula, "");
+                    throw new Exception("Voce nao possui permissoes de acesso a este veiculo! (" + funcionario.getNumeroTentativasSemPermissao() + "/3)");
                 }
-            Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placaVeiculoEscolhido);
+            }
+            funcionario.resetNumeroTentativasSemPermissao();
             this.novaSaida(veiculo, funcionario);
-            funcionario.resetNumeroTentativasSemPermissao();   
+        } else {
+            this.novoEvento(Evento.VEICULO_INDISPONIVEL, matricula, placa);
+            throw new Exception("Veiculo indisponivel no momento");
         }
     }
-  
+        
     
     
     public void devolverVeiculo(int matricula, String placa, int quilometragem) {   
@@ -100,8 +96,8 @@ public class ControladorClaviculario {
             if((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
                 veiculoFora.getVeiculo().setQuilometragemAtual(quilometragem);
                 this.veiculosFora.remove(veiculoFora);
-                
                 this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
+                break;
             }
         } 
     }
