@@ -12,6 +12,7 @@ public class ClavicularioEletronico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        new InicializaDados().insere();
         ControladorSistema.getInstance().inicia();
     }
     
