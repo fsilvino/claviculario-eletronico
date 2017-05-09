@@ -20,8 +20,7 @@ import java.util.List;
  */
 public class ControladorClaviculario {
 
-    private static ControladorClaviculario instance;
-    private 
+    private static ControladorClaviculario instance; 
     private List<EventoClaviculario> log;
     private List<SaidaVeiculo> veiculosFora;
     private TelaClaviculario tela;
