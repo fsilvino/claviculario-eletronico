@@ -41,7 +41,7 @@ public class ControladorSistema {
     }
 
     public void abreClaviculario() {
-        ControladorClaviculariotemp.getInstance().inicia();
+        ControladorClaviculario.getInstance().inicia();
     }
     
     public void abreCadastroPermissaoUsoVeiculo() {
