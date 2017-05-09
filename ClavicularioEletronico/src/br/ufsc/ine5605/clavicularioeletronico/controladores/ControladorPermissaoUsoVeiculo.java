@@ -116,10 +116,10 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         return findPermissaoUsoVeiculo(funcionario, veiculo);
     }
     
-    private boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
+    public boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
         return findPermissaoUsoVeiculo(funcionario, veiculo) != null;
     }
-    
+    /*
     public List getPermissoes(Funcionario funcionario) {
         
         List<PermissaoUsoVeiculo> permissoes = new ArrayList();
@@ -131,5 +131,5 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         }
         return permissoes;
     }
-  
+  */
 }
