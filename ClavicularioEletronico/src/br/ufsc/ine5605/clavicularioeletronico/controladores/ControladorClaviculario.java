@@ -41,7 +41,7 @@ public class ControladorClaviculario {
     }
 
     public void inicia() {
-        
+        tela.exibeMenu();
        // retirar chave, devolver chave
        //relatorio de acessos
     }
