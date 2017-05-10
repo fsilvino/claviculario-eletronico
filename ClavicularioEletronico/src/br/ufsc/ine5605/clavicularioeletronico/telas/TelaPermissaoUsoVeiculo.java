@@ -29,6 +29,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
     public void exibeTelaExclui() {
         try {
             ControladorPermissaoUsoVeiculo.getInstance().exclui(inputMatricula(), inputPlaca());
+            System.out.println("Permissao excluida com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
