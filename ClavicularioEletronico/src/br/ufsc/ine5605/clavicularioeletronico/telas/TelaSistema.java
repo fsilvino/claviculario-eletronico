@@ -27,7 +27,7 @@ public class TelaSistema {
             System.out.println("4 - Log de eventos");
             System.out.println("0 - Sair do sistema");
             System.out.println("-------------------------------------------------");
-            System.out.print("Opcaoo escolhida: ");
+            System.out.print("Opcao escolhida: ");
             try {
                 opcao = Integer.parseInt(this.teclado.nextLine());
             } catch (NumberFormatException e) {
@@ -41,6 +41,8 @@ public class TelaSistema {
                     case 1: ControladorSistema.getInstance().abreCadastroFuncionario();
                             break;
                     case 2: ControladorSistema.getInstance().abreCadastroVeiculo();
+                            break;
+                    case 3: ControladorSistema.getInstance().abreCadastroPermissaoUsoVeiculo();
                             break;
                 }
             }

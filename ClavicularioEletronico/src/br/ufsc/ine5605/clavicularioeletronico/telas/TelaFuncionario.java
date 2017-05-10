@@ -40,7 +40,7 @@ public class TelaFuncionario extends TelaCadastro {
         DadosFuncionario alteraFuncionario = entradaDadosFuncionario();
         
         try {
-            ControladorFuncionario.getInstance().inclui(alteraFuncionario);
+            ControladorFuncionario.getInstance().altera(alteraFuncionario);
             System.out.println("Funcionário alterado com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
