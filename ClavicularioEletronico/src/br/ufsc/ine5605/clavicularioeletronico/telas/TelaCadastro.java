@@ -4,7 +4,13 @@ import java.util.Scanner;
 
 public abstract class TelaCadastro {
     
-    protected final Scanner leitor = new Scanner(System.in);
+    protected Scanner teclado;
+
+    public TelaCadastro() {
+        this.teclado = new Scanner(System.in);
+    }
+    
+    
 
     public abstract void exibeTelaInclui();
 
@@ -26,7 +32,7 @@ public abstract class TelaCadastro {
             System.out.print("Opção escolhida: ");
             
             try {
-                opcao = Integer.parseInt(leitor.nextLine());
+                opcao = Integer.parseInt(this.teclado.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("A opcao precisa ser um numero!");
             }

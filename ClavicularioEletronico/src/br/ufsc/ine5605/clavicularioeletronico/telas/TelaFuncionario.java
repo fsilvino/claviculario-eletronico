@@ -9,6 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TelaFuncionario extends TelaCadastro {
+
+    public TelaFuncionario() {
+        super();
+    }
+    
+    
     
     @Override
     public void exibeMenu() {
@@ -61,7 +67,7 @@ public class TelaFuncionario extends TelaCadastro {
     
     public Date dataNascimento() {
         System.out.println("Digite a data de nascimento do funcionário (dd/mm/aaaa): ");
-        String data = leitor.nextLine();
+        String data = this.teclado.nextLine();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date nascimento = null;
         try {
@@ -79,7 +85,7 @@ public class TelaFuncionario extends TelaCadastro {
     
    private int inputMatricula() {
         System.out.println("Digite a matricula: ");
-        String input = leitor.nextLine();
+        String input = this.teclado.nextLine();
         int matricula = -1;
         if (input.matches("[0-9]")) {
             matricula = Integer.parseInt(input);
@@ -89,12 +95,12 @@ public class TelaFuncionario extends TelaCadastro {
     
     private String inputNome() {
         System.out.println("Digite o nome do funcionario: ");
-        return leitor.nextLine();
+        return this.teclado.nextLine();
     }
     
     private Date inputDataNascimento() {
         System.out.println("Digite a data de nascimento do funcionário (dd/mm/aaaa): ");
-        String data = leitor.nextLine();
+        String data = this.teclado.nextLine();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date nascimento = null;
         try {
@@ -107,7 +113,7 @@ public class TelaFuncionario extends TelaCadastro {
     
     private String inputTelefone() {
         System.out.println("Digite o telefone do funcionário: ");
-        return leitor.nextLine();
+        return this.teclado.nextLine();
         
     }
 
@@ -117,7 +123,7 @@ public class TelaFuncionario extends TelaCadastro {
         System.out.println("Digite o cargo do funcionário");
         System.out.println("1 - Diretoria");       
         System.out.println("2 - Motorista:");
-        String input = leitor.nextLine();
+        String input = this.teclado.nextLine();
         int opcao = 0;
         if (input.matches("[0-9]")) {
             opcao = Integer.parseInt(input);

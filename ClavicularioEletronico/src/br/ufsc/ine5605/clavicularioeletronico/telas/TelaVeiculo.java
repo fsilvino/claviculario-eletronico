@@ -3,9 +3,15 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import java.util.Scanner;
 
 public class TelaVeiculo extends TelaCadastro {
 
+    public TelaVeiculo() {
+        super();
+    }
+
+    
     @Override
     public void exibeMenu() {
         System.out.println("----------------Menu Veiculo-----------------");
@@ -61,7 +67,7 @@ public class TelaVeiculo extends TelaCadastro {
     
     private String inputPlaca() {
         System.out.println("Digite a placa do veiculo. Ex: (AAA-9999): ");
-        String placa = leitor.nextLine();
+        String placa = this.teclado.nextLine();
         //if (!placa.matches("[A-Z]{3}-{1}\\d{4}")) {
         //    System.out.println("A placa deve ser digitada no seguinte modelo: AAA-9999");
         //}
@@ -70,17 +76,17 @@ public class TelaVeiculo extends TelaCadastro {
     
     private String inputModelo() {
         System.out.println("Digite o modelo do veiculo: ");
-        return leitor.nextLine();
+        return this.teclado.nextLine();
     }
     
     private String inputMarca() {
         System.out.println("Digite o marca do veiculo: ");
-        return leitor.nextLine();
+        return this.teclado.nextLine();
     }
     
     private int inputAno(){
         System.out.println("Digite o ano do veiculo: ");
-        String input = leitor.nextLine();
+        String input = this.teclado.nextLine();
         int ano = 0;
         if (input.matches("[0-9]{4}")) {
             ano = Integer.parseInt(input);
@@ -93,7 +99,7 @@ public class TelaVeiculo extends TelaCadastro {
     
     private int inputQuilometragemAtual() {
         System.out.println("Digite a quilometragem atual do veiculo: ");
-        String input = leitor.nextLine();
+        String input = this.teclado.nextLine();
         int quilometragemAtual = 0;
         if (input.matches("[0-9]")) {
             quilometragemAtual = Integer.parseInt(input);

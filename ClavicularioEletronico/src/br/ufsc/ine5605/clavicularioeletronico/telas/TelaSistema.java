@@ -9,7 +9,13 @@ import java.util.Scanner;
  */
 public class TelaSistema {
 
-    private final Scanner leitor = new Scanner(System.in);
+    private Scanner teclado;
+
+    public TelaSistema() {
+        this.teclado = new Scanner(System.in);
+    }
+    
+    
       
     public void exibeMenu() {
         int opcao = -1;
@@ -23,7 +29,7 @@ public class TelaSistema {
             System.out.println("-------------------------------------------------");
             System.out.print("Opcaoo escolhida: ");
             try {
-                opcao = Integer.parseInt(leitor.nextLine());
+                opcao = Integer.parseInt(this.teclado.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("A opcao precisa ser um numero!");
             }
