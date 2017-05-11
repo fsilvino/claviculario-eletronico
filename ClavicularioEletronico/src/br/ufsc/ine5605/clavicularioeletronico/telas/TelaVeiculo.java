@@ -30,8 +30,7 @@ public class TelaVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
 
     @Override
@@ -45,8 +44,7 @@ public class TelaVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }        
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
 
     @Override
@@ -56,8 +54,7 @@ public class TelaVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
     
     @Override
@@ -67,8 +64,7 @@ public class TelaVeiculo extends TelaCadastro {
             System.out.println(item.getDescricao());
         }
         System.out.println("-------------------------------------------------");
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
     
     private DadosVeiculo entradaDadosVeiculo() throws Exception {
