@@ -79,7 +79,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
     public void exibeLista() {
         try {
             System.out.println("-------------------Permissoes---------------------");
-            for (ItemListaCadastro item: ControladorPermissaoUsoVeiculo.getInstance().exibeListaPermissoes(inputMatricula())) {
+            for (ItemListaCadastro item: ControladorPermissaoUsoVeiculo.getInstance().getListaPermissoes(inputMatricula())) {
                 System.out.println(item.getDescricao());
             }
             System.out.println("--------------------------------------------------");
