@@ -32,11 +32,6 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     }
 
     @Override
-    public void exibeListaItens() {
-        throw new RuntimeException("Use exibeListaPermissoes!");
-    }
-
-    @Override
     public List<ItemListaCadastro> getListaItensCadastro() {
         throw new RuntimeException("Use exibeListaPermissoes!");
     }
@@ -118,7 +113,7 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         return findPermissaoUsoVeiculo(funcionario, veiculo);
     }
     
-    private boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
+    public boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
         return findPermissaoUsoVeiculo(funcionario, veiculo) != null;
     }
     
