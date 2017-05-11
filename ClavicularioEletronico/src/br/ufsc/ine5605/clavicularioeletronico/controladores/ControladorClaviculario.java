@@ -9,6 +9,7 @@ import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaClaviculario;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  * Implementa a funcionalidade do Claviculario propriamente dita:
  * a liberação e a recepção das chaves conforme as configurações
  * do sistema e salva o log de eventos
- * @author Flávio
+ * @author Diogo
  * **/
  
 public class ControladorClaviculario {
@@ -42,8 +43,6 @@ public class ControladorClaviculario {
 
     public void inicia() {
         tela.exibeMenu();
-       // retirar chave, devolver chave
-       //relatorio de acessos
     }
     
     public void retirarChave() throws Exception {
@@ -130,4 +129,55 @@ public class ControladorClaviculario {
         this.veiculosFora.add(novaSaida);  
         this.novoEvento(Evento.ACESSO_PERMITIDO, funcionario.getMatricula(), veiculo.getPlaca());
     } 
+    
+    //relatório de acessos a veículos, onde seja possível pesquisar/filtrar por:
+    //motivo de negação/permissão, pela matrícula do funcionário ou pela placa do veículo.
+    public List<ItemListaCadastro> geraRelatorioPorEvento (Evento evento) {
+        
+        List<ItemListaCadastro> relatorio = new ArrayList();
+        for (EventoClaviculario item : log) {
+            if (item.getEvento().equals(evento)) {
+                String descricao = String.format("%s\t%s\t%s\t%s",                       
+                        item.getDatahora().getTime().toString(),
+                        item.getEvento(),
+                        item.getMatricula(),
+                        item.getPlaca());
+                relatorio.add(new ItemListaCadastro(descricao));
+            }
+        }
+        return relatorio;
+    }
+    
+   public List<ItemListaCadastro> geraRelatorioPorMatricula(int matricula) {
+        
+        List<ItemListaCadastro> relatorio = new ArrayList();
+        for (EventoClaviculario item : log) {
+            if (item.getMatricula() == matricula) {
+                String descricao = String.format("%s\t%s\t%s\t%s",                       
+                        item.getDatahora().getTime().toString(),
+                        item.getEvento(),
+                        item.getMatricula(),
+                        item.getPlaca());
+                relatorio.add(new ItemListaCadastro(descricao));
+            }
+        }
+        return relatorio;
+    }
+    
+    public List<ItemListaCadastro> geraRelatorioPorVeiculo(String placa) {
+        
+        List<ItemListaCadastro> relatorio = new ArrayList();
+        for (EventoClaviculario item : log) {
+            if (item.getPlaca().equals(placa)) {
+                String descricao = String.format("%s\t%s\t%s\t%s",                       
+                        item.getDatahora().getTime().toString(),
+                        item.getEvento(),
+                        item.getMatricula(),
+                        item.getPlaca());
+                relatorio.add(new ItemListaCadastro(descricao));
+            }
+        }
+        return relatorio;
+    }
+
 }
