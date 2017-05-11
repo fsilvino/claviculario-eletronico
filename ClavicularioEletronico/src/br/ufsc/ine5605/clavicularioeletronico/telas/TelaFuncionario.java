@@ -33,6 +33,8 @@ public class TelaFuncionario extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
 
     @Override
@@ -45,15 +47,20 @@ public class TelaFuncionario extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
 
     @Override
     public void exibeTelaExclui() {
         try {
             ControladorFuncionario.getInstance().exclui(inputMatricula());
+            System.out.println("Funcionário excluido com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
     
     @Override
@@ -63,6 +70,8 @@ public class TelaFuncionario extends TelaCadastro {
             System.out.println(item.getDescricao());
         }
         System.out.println("-------------------------------------------------");
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
     
     public Date dataNascimento() {

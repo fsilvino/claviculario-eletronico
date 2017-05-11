@@ -3,7 +3,6 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
-import java.util.Scanner;
 
 public class TelaVeiculo extends TelaCadastro {
 

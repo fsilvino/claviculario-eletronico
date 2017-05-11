@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPermissaoUsoVeiculo, PermissaoUsoVeiculo> {
     
-    private static ControladorPermissaoUsoVeiculo instance;
+    private static ControladorPermissaoUsoVeiculo instancia;
     
     private ControladorPermissaoUsoVeiculo() {
         super();
@@ -25,10 +25,10 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     }
     
     public static ControladorPermissaoUsoVeiculo getInstance() {
-        if (instance == null) {
-            instance = new ControladorPermissaoUsoVeiculo();
+        if (instancia == null) {
+            instancia = new ControladorPermissaoUsoVeiculo();
         }
-        return instance;
+        return instancia;
     }
 
     @Override
@@ -53,14 +53,14 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
         if (funcionario.getCargo() == Cargo.DIRETORIA) {
-            throw new Exception(String.format("O funcionario \"%s\" tem acesso a todos os veiculos pois seu cargo eh de diretoria.\n" +
-                                              "Nao sera possivel cadastrar os veiculos nesta opcao.", funcionario.getNome()));
+            throw new Exception("Este funcionario tem acesso a todos os veiculos pois seu cargo eh de diretoria.\n" +
+                                "Nao sera possivel cadastrar os veiculos nesta opcao.");
         }
         
         Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
         
         if (permissaoExiste(funcionario, veiculo)) {
-            throw new Exception(String.format("O funcionario %s - %s ja possui permissao para acessar o veiculo %s.", funcionario.getMatricula(), funcionario.getNome(), veiculo.getPlaca()));
+            throw new Exception(String.format("O funcionario {0} - {1} ja possui permissao para acessar o veiculo {2}.", funcionario.getMatricula(), funcionario.getNome(), veiculo.getPlaca()));
         }
         
         itens.add(new PermissaoUsoVeiculo(funcionario, veiculo));
@@ -75,11 +75,13 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     public void exclui(int matricula, String placa) throws Exception {
         PermissaoUsoVeiculo permissao = findPermissaoUsoVeiculo(matricula, placa);
         if (permissao == null) {
-            throw new Exception(String.format("O funcionario de matricula $s nao possui permissao de uso para o veiculo de placa $s.", matricula, placa));
+            throw new Exception(String.format("O funcionario de matricula {0} nao possui permissao de uso para o veiculo de placa {1}", matricula, placa));
         }
+        
+        itens.remove(permissao);
     }
     
-    public void exibeListaPermissoes(int matricula) throws Exception {
+    public List<ItemListaCadastro> getListaPermissoes(int matricula) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
         if (funcionario.getCargo() == Cargo.DIRETORIA) {
@@ -89,10 +91,10 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         List<ItemListaCadastro> lista = new ArrayList<>();
         for (PermissaoUsoVeiculo permissao : itens) {
             if (permissao.getFuncionario().getMatricula() == matricula) {
-                lista.add(new ItemListaCadastro(String.format("%s\t%s", permissao.getVeiculo().getPlaca(), permissao.getVeiculo().getModelo())));
+                lista.add(new ItemListaCadastro(permissao.getVeiculo().getPlaca()+"\t"+permissao.getVeiculo().getModelo()));
             }
         }
-        tela.exibeLista(lista);
+        return lista;
     }
     
     private PermissaoUsoVeiculo findPermissaoUsoVeiculo(Funcionario funcionario, Veiculo veiculo) {
@@ -116,20 +118,8 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         return findPermissaoUsoVeiculo(funcionario, veiculo);
     }
     
-    public boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
+    private boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
         return findPermissaoUsoVeiculo(funcionario, veiculo) != null;
     }
-    /*
-    public List getPermissoes(Funcionario funcionario) {
-        
-        List<PermissaoUsoVeiculo> permissoes = new ArrayList();
-        
-        for (PermissaoUsoVeiculo permissao : itens) {
-            if(permissao.getFuncionario().equals(funcionario)) {
-                permissoes.add(permissao);
-            } 
-        }
-        return permissoes;
-    }
-  */
+    
 }
