@@ -14,8 +14,6 @@ public class TelaFuncionario extends TelaCadastro {
         super();
     }
     
-    
-    
     @Override
     public void exibeMenu() {
         System.out.println("----------------Menu Funcionario-----------------");
@@ -33,8 +31,7 @@ public class TelaFuncionario extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
 
     @Override
@@ -47,8 +44,7 @@ public class TelaFuncionario extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
 
     @Override
@@ -59,8 +55,7 @@ public class TelaFuncionario extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
     
     @Override
@@ -70,8 +65,7 @@ public class TelaFuncionario extends TelaCadastro {
             System.out.println(item.getDescricao());
         }
         System.out.println("-------------------------------------------------");
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
     
     public Date dataNascimento() {
