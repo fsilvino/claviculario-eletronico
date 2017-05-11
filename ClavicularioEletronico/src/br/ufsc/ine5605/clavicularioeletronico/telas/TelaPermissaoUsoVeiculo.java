@@ -2,7 +2,6 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorPermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
-import java.util.List;
 
 /**
  *
@@ -53,6 +52,8 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
 
     @Override
@@ -68,6 +69,8 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
 
     /**
@@ -86,6 +89,8 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Aperte ENTER para continuar...");
+        this.teclado.nextLine();
     }
     
     private String inputPlaca() {
