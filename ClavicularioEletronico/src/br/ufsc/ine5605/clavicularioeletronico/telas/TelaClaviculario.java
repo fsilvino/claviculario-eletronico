@@ -3,18 +3,16 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
 import java.util.Scanner;
 
-public class TelaClaviculario {
-    
-    private Scanner teclado;
-    
+public class TelaClaviculario extends TelaBase {
+        
     public TelaClaviculario() {
-        this.teclado = new Scanner(System.in);
+        super();
     }
     
     public void exibeMenu() {
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("Claviculario Eletronico");
+            System.out.println("----------------Claviculario Eletronico-----------------");
             System.out.println("1) Retirar Chave");
             System.out.println("2) Devolver Chave");
             System.out.println("3) Relatorios");
@@ -34,7 +32,7 @@ public class TelaClaviculario {
                         break;
                 }
             } else {
-                System.out.println("Digite uma opcao valida!");
+                System.out.println("Informe uma opcao valida!");
             }
         }
     }
@@ -42,6 +40,8 @@ public class TelaClaviculario {
     private void retirarChave() {
         try {
             ControladorClaviculario.getInstance().retirarChave();
+            System.out.println("Chave liberada com sucesso!");
+            solicitaEnterParaContinuar();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
