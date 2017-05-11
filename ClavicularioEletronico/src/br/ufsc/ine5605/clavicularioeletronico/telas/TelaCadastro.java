@@ -1,16 +1,10 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
-import java.util.Scanner;
-
-public abstract class TelaCadastro {
+public abstract class TelaCadastro extends TelaBase {
     
-    protected Scanner teclado;
-
     public TelaCadastro() {
-        this.teclado = new Scanner(System.in);
+        super();
     }
-    
-    
 
     public abstract void exibeTelaInclui();
 

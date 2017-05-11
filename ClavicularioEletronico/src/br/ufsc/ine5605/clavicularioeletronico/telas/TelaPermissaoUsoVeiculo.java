@@ -52,8 +52,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
 
     @Override
@@ -69,8 +68,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
 
     /**
@@ -89,8 +87,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Aperte ENTER para continuar...");
-        this.teclado.nextLine();
+        solicitaEnterParaContinuar();
     }
     
     private String inputPlaca() {
