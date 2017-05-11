@@ -42,9 +42,5 @@ public abstract class ControladorCadastro<T extends TelaCadastro, E> {
     public void abreTelaExclui() {
         tela.exibeTelaExclui();
     }
-
-    public void exibeListaItens() {
-        tela.exibeLista(getListaItensCadastro());
-    }
     
 }
