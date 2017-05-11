@@ -1,7 +1,6 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
-import java.util.Scanner;
 
 public class TelaClaviculario extends TelaBase {
         
@@ -16,7 +15,7 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("1) Retirar Chave");
             System.out.println("2) Devolver Chave");
             System.out.println("3) Relatorios");
-            System.out.println("0) Sair");
+            System.out.println("0) Voltar ao menu inicial");
         
             if (this.teclado.hasNextInt()) {
                 opcao = this.teclado.nextInt();
