@@ -1,7 +1,8 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
-import br.ufsc.ine5605.clavicularioeletronico.validacoes.ValidacaoDadosFuncionario;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import java.util.List;
 
 public class TelaClaviculario extends TelaBase {
         
@@ -16,7 +17,7 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("1) Retirar Chave");
             System.out.println("2) Devolver Chave");
             System.out.println("3) Relatorios");
-            System.out.println("0) Sair");
+            System.out.println("0) Voltar ao menu inicial");
         
             try {
                 opcao = Integer.parseInt(this.teclado.nextLine());
@@ -121,24 +122,6 @@ public class TelaClaviculario extends TelaBase {
     
     private void exibeRelatorios (List<ItemListaCadastro> relatorio) {
         
-    }
-        
-    public int pedeMatricula() {
-        System.out.println("Matricula: ");
-        if (this.teclado.hasNextInt()) {
-            return this.teclado.nextInt();
-        }
-        System.out.println("A matricula deve conter apenas numeros!");
-        return 0;
-    }
-
-    public String pedePlaca() {
-        System.out.println("Placa: ");
-        String placa = this.teclado.next();
-        if (placa == null || placa.isEmpty()) {
-            System.out.println("Informe a placa!");
-        }
-        return placa;
     }
     
 }
