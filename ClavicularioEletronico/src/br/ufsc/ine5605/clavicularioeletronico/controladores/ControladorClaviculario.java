@@ -91,18 +91,19 @@ public class ControladorClaviculario {
     
     public void devolverVeiculo(int matricula, String placa, int quilometragem) throws Exception {   
         //validar matricula
-        
+        boolean veiculoEncontrado = false;
         for (SaidaVeiculo veiculoFora : veiculosFora) {
             if((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
                 veiculoFora.getVeiculo().setQuilometragemAtual(quilometragem);
                 this.veiculosFora.remove(veiculoFora);
                 this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
+                veiculoEncontrado = true;
                 break;
             }
-            else {
-                throw new Exception("Error");
-            } 
-        } 
+        }
+        if (!veiculoEncontrado) {
+            throw new Exception("Veiculo encontra-se na garegem");
+        }
     }
         
     private boolean veiculoDisponivel(String placa) {
