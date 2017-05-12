@@ -17,7 +17,7 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("1) Retirar Chave");
             System.out.println("2) Devolver Chave");
             System.out.println("3) Relatorios");
-            System.out.println("0) Sair");
+            System.out.println("0) Voltar ao menu inicial");
         
             try {
                 opcao = Integer.parseInt(this.teclado.nextLine());
@@ -125,5 +125,10 @@ public class TelaClaviculario extends TelaBase {
     
     private void exibeRelatorios (List<ItemListaCadastro> relatorio) {
         
+<<<<<<< HEAD
     }    
+=======
+    }
+    
+>>>>>>> refs/remotes/origin/master
 }
