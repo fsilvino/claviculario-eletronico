@@ -46,13 +46,8 @@ public class ControladorClaviculario {
        //relatorio de acessos
     }
     
-    public void retirarChave() throws Exception {
+    public void retirarChave(int matricula) throws Exception {
         
-        int matricula = tela.pedeMatricula();
-        if (matricula == 0) {
-            
-            throw new Exception("Matricula inválida");
-        }
         Funcionario funcionario = null;
         
         try {
@@ -67,7 +62,7 @@ public class ControladorClaviculario {
             throw new Exception("Usuario encontra-se bloqueado!");
         }
  
-        String placa = tela.pedePlaca();
+        String placa = tela.inputPlaca();
         Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
         
         if (this.veiculoDisponivel(placa)) {
@@ -94,7 +89,7 @@ public class ControladorClaviculario {
         
     
     
-    public void devolverVeiculo(int matricula, String placa, int quilometragem) {   
+    public void devolverVeiculo(int matricula, String placa, int quilometragem) throws Exception {   
         //validar matricula
         
         for (SaidaVeiculo veiculoFora : veiculosFora) {
@@ -104,6 +99,9 @@ public class ControladorClaviculario {
                 this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
                 break;
             }
+            else {
+                throw new Exception("Error");
+            } 
         } 
     }
         
@@ -127,7 +125,7 @@ public class ControladorClaviculario {
     private void novaSaida(Veiculo veiculo, Funcionario funcionario){
         Calendar dataHora = Calendar.getInstance();         //verificar como pegar a hora
         SaidaVeiculo novaSaida = new SaidaVeiculo(veiculo, funcionario, dataHora);
-        this.veiculosFora.add(novaSaida);  
+        this.veiculosFora.add(novaSaida);
         this.novoEvento(Evento.ACESSO_PERMITIDO, funcionario.getMatricula(), veiculo.getPlaca());
     } 
 }
