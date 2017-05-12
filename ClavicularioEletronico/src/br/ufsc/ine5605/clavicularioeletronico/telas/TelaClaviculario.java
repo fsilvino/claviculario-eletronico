@@ -1,9 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
-import java.util.List;
-import java.util.Scanner;
+import br.ufsc.ine5605.clavicularioeletronico.validacoes.ValidacaoDadosFuncionario;
 
 public class TelaClaviculario extends TelaBase {
         
@@ -20,8 +18,12 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("3) Relatorios");
             System.out.println("0) Sair");
         
-            if (this.teclado.hasNextInt()) {
-                opcao = this.teclado.nextInt();
+            try {
+                opcao = Integer.parseInt(this.teclado.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("A opcao precisa ser um numero!");
+            }
+            if (opcao < 3 || opcao > 0) {
                 switch (opcao) {
                     case 1:
                         retirarChave();
@@ -97,16 +99,24 @@ public class TelaClaviculario extends TelaBase {
     
     private void retirarChave() {
         try {
-            ControladorClaviculario.getInstance().retirarChave();
+            ControladorClaviculario.getInstance().retirarChave(inputMatricula());
             System.out.println("Chave liberada com sucesso!");
-            solicitaEnterParaContinuar();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        solicitaEnterParaContinuar();
     }
     
     private void devolverChave() {
-    
+        try {
+            ControladorClaviculario.getInstance().devolverVeiculo(
+                    inputMatricula(), inputPlaca(), inputQuilometragemAtual()
+            );
+            System.out.println("Chave devolvida com sucesso!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        solicitaEnterParaContinuar();
     }
     
     private void exibeRelatorios (List<ItemListaCadastro> relatorio) {

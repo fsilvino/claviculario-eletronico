@@ -89,23 +89,4 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         }
         solicitaEnterParaContinuar();
     }
-    
-    private String inputPlaca() {
-        System.out.println("Digite a placa do veiculo. Ex: (AAA-9999): ");
-        String placa = this.teclado.nextLine();
-        //if (!placa.matches("[A-Z]{3}-{1}\\d{4}")) {
-        //    System.out.println("A placa deve ser digitada no seguinte modelo: AAA-9999");
-        //}
-        return placa;
-    }
-    
-    private int inputMatricula() {
-        System.out.println("Digite a matricula: ");
-        String input = this.teclado.nextLine();
-        int matricula = -1;
-        if (input.matches("[0-9]")) {
-            matricula = Integer.parseInt(input);
-        }
-        return matricula;
-    }
 }
