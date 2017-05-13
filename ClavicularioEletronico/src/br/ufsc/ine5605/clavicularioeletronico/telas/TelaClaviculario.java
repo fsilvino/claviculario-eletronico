@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
+import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import java.util.List;
 
@@ -60,6 +61,9 @@ public class TelaClaviculario extends TelaBase {
                     case 2:
                         break;
                     case 3:
+                        
+                        break;
+                    case 4:
                         exibeMenuEventos();
                         break;
                 }
@@ -84,17 +88,39 @@ public class TelaClaviculario extends TelaBase {
         
             if (this.teclado.hasNextInt()) {
                 opcao = this.teclado.nextInt();
+                Evento evento = null;
+                
                 switch (opcao) {
                     case 1:
+                        evento = Evento.ACESSO_PERMITIDO;
                         break;
                     case 2:
+                        evento = Evento.ACESSO_BLOQUEADO;
                         break;
                     case 3:
+                       evento = Evento.USUARIO_BLOQUEADO;
+                        break;
+                    case 4:
+                        evento = Evento.MATRICULA_INVALIDA;
+                        break;
+                    case 5:
+                        evento = Evento.PERMISSAO_INSUFICIENTE;
+                        break;
+                    case 6:
+                        evento = Evento.VEICULO_INDISPONIVEL;
+                        break;
+                    case 7:
+                        evento = Evento.VEICULO_DEVOLVIDO;
                         break;
                 }
+                
+                List<ItemListaCadastro> relatorio = ControladorClaviculario.getInstance().geraRelatorioPorEvento(evento);
+                exibeRelatorios(relatorio);
+            
             } else {
                 System.out.println("Informe uma opcao valida!");
             }
+        
         }
     }
     
