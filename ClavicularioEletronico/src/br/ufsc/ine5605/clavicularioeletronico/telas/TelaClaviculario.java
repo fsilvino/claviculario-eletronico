@@ -52,19 +52,20 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("3) Pesquisa por veiculo ");
             System.out.println("4) Pesquisa por evento");
             System.out.println("0) Sair");
+            
             try {
                 opcao = Integer.parseInt(this.teclado.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("A opcao precisa ser um numero!");
             }
-            if (opcao >= 0 && opcao <= 3) {
+            
+            if (opcao >= 0 && opcao <= 4) {
                 switch (opcao) {
                     case 1:
                         break;
                     case 2:
                         break;
                     case 3:
-                        
                         break;
                     case 4:
                         exibeMenuEventos();
@@ -88,12 +89,18 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("6) Veiculo indisponivel");
             System.out.println("7) Veiculo devolvido");
             System.out.println("0) Sair");
+            
+            try {
+                opcao = Integer.parseInt(this.teclado.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("A opcao precisa ser um numero!");
+            }
         
-            if (this.teclado.hasNextInt()) {
-                opcao = this.teclado.nextInt();
+            if (opcao >=0 && opcao <= 7  ) {
                 Evento evento = null;
                 
                 switch (opcao) {
+                        
                     case 1:
                         evento = Evento.ACESSO_PERMITIDO;
                         break;
@@ -151,6 +158,15 @@ public class TelaClaviculario extends TelaBase {
     
     private void exibeRelatorios (List<Listavel> relatorio) {
         
-        //teste
+        System.out.println("---------------------------------Relatórios-----------------------------");
+        System.out.println("--------------Data--------------Evento--------------Matricula----Veiculo");
+        if (relatorio.isEmpty()) {
+            System.out.println("Sem correspondencias na pesquisa");
+        } else {
+            for (Listavel evento : relatorio) {
+                System.out.println(evento.getDescricao());    
+            }
+        }
+        solicitaEnterParaContinuar();
     }
 }
