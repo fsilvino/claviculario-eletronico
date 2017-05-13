@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorSistema;
+import java.util.Calendar;
 
 /**
  * 
@@ -11,8 +12,6 @@ public class TelaSistema extends TelaBase {
     public TelaSistema() {
         super();
     }
-    
-    
       
     public void exibeMenu() {
         int opcao = -1;
@@ -21,8 +20,7 @@ public class TelaSistema extends TelaBase {
             System.out.println("1 - Funcionarios");
             System.out.println("2 - Veiculos");
             System.out.println("3 - Permissoes");
-            System.out.println("4 - Log de eventos");
-            System.out.println("5 - Claviculario Eletronico");
+            System.out.println("4 - Claviculario Eletronico");
             System.out.println("0 - Sair do sistema");
             System.out.println("-------------------------------------------------");
             System.out.print("Opcao escolhida: ");
@@ -31,20 +29,24 @@ public class TelaSistema extends TelaBase {
             } catch (NumberFormatException e) {
                 System.out.println("A opcao precisa ser um numero!");
             }
-            switch (opcao) {
-                case 1: ControladorSistema.getInstance().abreCadastroFuncionario();
+            
+            if (opcao != 0) {
+                switch (opcao) {
+                    case 1:
+                        ControladorSistema.getInstance().abreCadastroFuncionario();
                         break;
-                case 2: ControladorSistema.getInstance().abreCadastroVeiculo();
+                    case 2:
+                        ControladorSistema.getInstance().abreCadastroVeiculo();
                         break;
-                case 3: ControladorSistema.getInstance().abreCadastroPermissaoUsoVeiculo();
+                    case 3:
+                        ControladorSistema.getInstance().abreCadastroPermissaoUsoVeiculo();
                         break;
-                case 4:
-                    break;
-                case 5:
-                    ControladorSistema.getInstance().abreClaviculario();
-                    break;
-                default:
-                    System.out.println("Informe uma opcao valida!");
+                    case 4:
+                        ControladorSistema.getInstance().abreClaviculario();
+                        break;
+                    default:
+                        System.out.println("Informe uma opcao valida!");
+                }
             }
         }
     }
