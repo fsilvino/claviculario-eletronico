@@ -22,7 +22,7 @@ public class ValidacaoDadosFuncionario {
     }
     
     public static boolean validaNome(String nome) throws Exception {
-        if (!nome.matches("[a-zA-Z]+\\s{1}[\\sa-zA-Z]+")) {
+        if (!nome.matches("[a-zA-Z ]+")) {
             throw new Exception("Você deve digitar um nome!");
         }
         return true;

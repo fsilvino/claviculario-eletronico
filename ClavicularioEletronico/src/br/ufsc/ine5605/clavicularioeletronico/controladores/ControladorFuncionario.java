@@ -170,4 +170,14 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
         return funcionario;
     }
     
+     /**
+     * Verifica se o funcionário existe
+     * @param matricula Matrícula a ser pesquisada
+     * @return true se o funcionário existe, false se não foi encontrado
+     */
+    
+    public boolean funcionarioExiste(int matricula) {
+        return findFuncionarioPelaMatricula(matricula) != null;
+    }
+    
 }
