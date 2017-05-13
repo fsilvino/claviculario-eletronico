@@ -169,4 +169,13 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
         return veiculo;
     }
     
+     /**
+     * Pesquisa o veículo pela placa e o retorna
+     * @param placa Placa do veiculo no formato AAA-9999
+     * @return True se o veiculo existe na lista
+     */ 
+    public boolean veiculoExiste(String placa) {
+        return findVeiculoPelaPlaca(placa) != null;
+    }
+    
 }

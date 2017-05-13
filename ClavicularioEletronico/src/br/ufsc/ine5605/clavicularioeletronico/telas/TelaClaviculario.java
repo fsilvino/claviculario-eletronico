@@ -113,9 +113,7 @@ public class TelaClaviculario extends TelaBase {
     
     private void devolverChave() {
         try {
-            ControladorClaviculario.getInstance().devolverVeiculo(
-                    inputMatricula(), inputPlaca(), inputQuilometragemAtual()
-            );
+            ControladorClaviculario.getInstance().devolverVeiculo();
             System.out.println("Chave devolvida com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -125,10 +123,6 @@ public class TelaClaviculario extends TelaBase {
     
     private void exibeRelatorios (List<ItemListaCadastro> relatorio) {
         
-<<<<<<< HEAD
     }    
-=======
-    }
-    
->>>>>>> refs/remotes/origin/master
+
 }
