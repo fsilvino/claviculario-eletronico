@@ -2,7 +2,7 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.util.List;
 
 public class TelaClaviculario extends TelaBase {
@@ -117,7 +117,7 @@ public class TelaClaviculario extends TelaBase {
                         break;
                 }
                 
-                List<ItemListaCadastro> relatorio = ControladorClaviculario.getInstance().geraRelatorioPorEvento(evento);
+                List<Listavel> relatorio = ControladorClaviculario.getInstance().geraRelatorioPorEvento(evento);
                 exibeRelatorios(relatorio);
             
             } else {
@@ -149,12 +149,7 @@ public class TelaClaviculario extends TelaBase {
         solicitaEnterParaContinuar();
     }
     
-    private void exibeRelatorios (List<ItemListaCadastro> relatorio) {
+    private void exibeRelatorios (List<Listavel> relatorio) {
         
-<<<<<<< HEAD
-    }    
-=======
     }
-    
->>>>>>> refs/remotes/origin/master
 }
