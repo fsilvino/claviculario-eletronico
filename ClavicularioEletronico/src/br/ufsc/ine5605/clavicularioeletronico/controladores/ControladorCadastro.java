@@ -1,7 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaCadastro;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public abstract class ControladorCadastro<T extends TelaCadastro, E> {
         itens = new ArrayList<>();
     }
     
-    public abstract List<ItemListaCadastro> getListaItensCadastro();
+    public abstract List<Listavel> getListaItensCadastro();
 
     public void inicia() {
         this.exibeMenu();

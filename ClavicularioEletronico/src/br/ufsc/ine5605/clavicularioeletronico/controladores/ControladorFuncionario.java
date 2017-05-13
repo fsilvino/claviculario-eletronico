@@ -5,6 +5,7 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.Funcionario;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
      * @return Lista dos itens
      */
     @Override
-    public List<ItemListaCadastro> getListaItensCadastro() {
-        List<ItemListaCadastro> lista = new ArrayList<>();
+    public List<Listavel> getListaItensCadastro() {
+        List<Listavel> lista = new ArrayList<>();
         for (Funcionario funcionario : itens) {
             lista.add(new ItemListaCadastro(funcionario.getMatricula() + "\t" + funcionario.getNome()));
         }

@@ -6,7 +6,7 @@ package br.ufsc.ine5605.clavicularioeletronico.transferencias;
  * (Data Transfer Object)
  * @author Flávio
  */
-public class ItemListaCadastro {
+public class ItemListaCadastro implements Listavel {
     
     private String descricao;
 
@@ -14,6 +14,7 @@ public class ItemListaCadastro {
         this.descricao = descricao;
     }
 
+    @Override
     public String getDescricao() {
         return descricao;
     }

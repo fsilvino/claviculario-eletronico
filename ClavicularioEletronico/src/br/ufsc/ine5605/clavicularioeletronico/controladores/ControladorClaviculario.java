@@ -11,6 +11,7 @@ import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaExc
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.PlacaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaClaviculario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -141,9 +142,9 @@ public class ControladorClaviculario {
     
      //relatório de acessos a veículos, onde seja possível pesquisar/filtrar por:
      //motivo de negação/permissão, pela matrícula do funcionário ou pela placa do veículo.
-     public List<ItemListaCadastro> geraRelatorioPorEvento (Evento evento) {
+     public List<Listavel> geraRelatorioPorEvento (Evento evento) {
          
-         List<ItemListaCadastro> relatorio = new ArrayList();
+         List<Listavel> relatorio = new ArrayList();
          for (EventoClaviculario item : log) {
              if (item.getEvento().equals(evento)) {
                  String descricao = String.format("%s\t%s\t%s\t%s",                       
@@ -157,9 +158,9 @@ public class ControladorClaviculario {
          return relatorio;
      }
      
-    public List<ItemListaCadastro> geraRelatorioPorMatricula(int matricula) {
+    public List<Listavel> geraRelatorioPorMatricula(int matricula) {
          
-         List<ItemListaCadastro> relatorio = new ArrayList();
+         List<Listavel> relatorio = new ArrayList();
          for (EventoClaviculario item : log) {
              if (item.getMatricula() == matricula) {
                  String descricao = String.format("%s\t%s\t%s\t%s",                       
@@ -173,9 +174,9 @@ public class ControladorClaviculario {
          return relatorio;
      }
      
-     public List<ItemListaCadastro> geraRelatorioPorVeiculo(String placa) {
+     public List<Listavel> geraRelatorioPorVeiculo(String placa) {
          
-         List<ItemListaCadastro> relatorio = new ArrayList();
+         List<Listavel> relatorio = new ArrayList();
          for (EventoClaviculario item : log) {
              if (item.getPlaca().equals(placa)) {
                  String descricao = String.format("%s\t%s\t%s\t%s",                       
