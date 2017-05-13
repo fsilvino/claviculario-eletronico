@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorFuncionario;
+import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorSistema;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
@@ -17,12 +18,30 @@ public class TelaFuncionario extends TelaCadastro {
     }
     
     @Override
+    protected void exibeOpcoesMenu() {
+        System.out.println("1 - Incluir");
+        System.out.println("2 - Alterar");
+        System.out.println("3 - Excluir");
+        System.out.println("4 - Listagem");
+        System.out.println("5 - Permissoes de uso dos veiculos");
+        System.out.println("0 - Voltar");
+    }
+
+    @Override
+    protected boolean executaOpcaoMenu(int opcao) {
+        if (opcao == 5) {
+            ControladorSistema.getInstance().abreCadastroPermissaoUsoVeiculo();
+            return true;
+        }
+        return super.executaOpcaoMenu(opcao);
+    }
+    
+    @Override
     public void exibeTelaInclui() {
         try {
             DadosFuncionario novoFuncionario = entradaDadosFuncionario();
             ControladorFuncionario.getInstance().inclui(novoFuncionario);
             System.out.println("Funcionário cadastrado com sucesso!");
-        
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

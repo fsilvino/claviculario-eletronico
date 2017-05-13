@@ -9,7 +9,6 @@ public class TelaVeiculo extends TelaCadastro {
     public TelaVeiculo() {
         super();
     }
-
     
     @Override
     public void exibeMenu() {
@@ -19,9 +18,6 @@ public class TelaVeiculo extends TelaCadastro {
     
     @Override
     public void exibeTelaInclui() {
-        
-        
-        
         try {
             DadosVeiculo novoVeiculo = entradaDadosVeiculo();
             ControladorVeiculo.getInstance().inclui(novoVeiculo);
@@ -34,8 +30,6 @@ public class TelaVeiculo extends TelaCadastro {
 
     @Override
     public void exibeTelaAltera() {
-        
-        
         try {
             DadosVeiculo alteraVeiculo = entradaDadosVeiculo();
             ControladorVeiculo.getInstance().altera(alteraVeiculo);
