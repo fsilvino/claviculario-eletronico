@@ -1,7 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorPermissaoUsoVeiculo;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
 /**
  *
@@ -80,7 +80,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
     public void exibeLista() {
         try {
             System.out.println("-------------------Permissoes---------------------");
-            for (ItemListaCadastro item: ControladorPermissaoUsoVeiculo.getInstance().getListaPermissoes(inputMatricula())) {
+            for (Listavel item: ControladorPermissaoUsoVeiculo.getInstance().getListaPermissoes(inputMatricula())) {
                 System.out.println(item.getDescricao());
             }
             System.out.println("--------------------------------------------------");

@@ -2,7 +2,7 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosFuncionario;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
 public class TelaFuncionario extends TelaCadastro {
 
@@ -55,7 +55,7 @@ public class TelaFuncionario extends TelaCadastro {
     @Override
     public void exibeLista() {
         System.out.println("------------Funcionarios cadastrados-------------");
-        for (ItemListaCadastro item: ControladorFuncionario.getInstance().getListaItensCadastro()) {
+        for (Listavel item: ControladorFuncionario.getInstance().getListaItensCadastro()) {
             System.out.println(item.getDescricao());
         }
         System.out.println("-------------------------------------------------");
