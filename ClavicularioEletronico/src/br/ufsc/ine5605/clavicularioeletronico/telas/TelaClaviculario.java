@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorClaviculario;
+import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.util.List;
@@ -18,7 +19,7 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("1) Retirar Chave");
             System.out.println("2) Devolver Chave");
             System.out.println("3) Relatorios");
-            System.out.println("0) Voltar ao menu inicial");
+            System.out.println("0) Voltar");
         
             opcao = inputOpcao();
             if (opcao != 0) {
@@ -118,8 +119,14 @@ public class TelaClaviculario extends TelaBase {
     
     private void retirarChave() {
         try {
-            ControladorClaviculario.getInstance().retirarChave(inputMatricula());
-            System.out.println("Chave liberada com sucesso!");
+            Veiculo veiculo = ControladorClaviculario.getInstance().retirarChave(inputMatricula());
+            if (veiculo != null) {
+                System.out.println(String.format("Chave liberada com sucesso!\n" +
+                                                 "Veiculo: %s %s %s\n" +
+                                                 "Placa: %s",
+                                                 veiculo.getMarca(), veiculo.getModelo(), veiculo.getAno(), veiculo.getPlaca()));
+            }
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

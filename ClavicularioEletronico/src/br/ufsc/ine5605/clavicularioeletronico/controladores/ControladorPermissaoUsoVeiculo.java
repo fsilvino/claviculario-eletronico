@@ -77,18 +77,26 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         itens.remove(permissao);
     }
     
-    public List<Listavel> getListaPermissoes(int matricula) throws Exception {
+    public List<PermissaoUsoVeiculo> getPermissoesFuncionario(int matricula) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
         if (funcionario.getCargo() == Cargo.DIRETORIA) {
             throw new CadastroInvalidoPermissaoUsoVeiculoDiretoria();
         }
         
-        List<Listavel> lista = new ArrayList<>();
+        List<PermissaoUsoVeiculo> lista = new ArrayList<>();
         for (PermissaoUsoVeiculo permissao : itens) {
             if (permissao.getFuncionario().getMatricula() == matricula) {
-                lista.add(new ItemListaCadastro(permissao.getVeiculo().getPlaca()+"\t"+permissao.getVeiculo().getModelo()));
+                lista.add(permissao);
             }
+        }
+        return lista;
+    }
+    
+    public List<Listavel> getListaPermissoes(int matricula) throws Exception {
+        List<Listavel> lista = new ArrayList<>();
+        for (PermissaoUsoVeiculo permissao : getPermissoesFuncionario(matricula)) {
+            lista.add(new ItemListaCadastro(permissao.getVeiculo().getPlaca()+"\t"+permissao.getVeiculo().getModelo()));
         }
         return lista;
     }

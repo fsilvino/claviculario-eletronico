@@ -49,7 +49,7 @@ public class ControladorClaviculario {
        //relatorio de acessos
     }
     
-    public void retirarChave(int matricula) throws Exception {
+    public Veiculo retirarChave(int matricula) throws Exception {
         
         Funcionario funcionario = null;
         
@@ -62,21 +62,27 @@ public class ControladorClaviculario {
                
         if (funcionario.isBloqueado()) {
             this.novoEvento(Evento.USUARIO_BLOQUEADO, matricula, "");
-            throw new Exception("Usuario encontra-se bloqueado!");
+            throw new Exception("Funcionario encontra-se bloqueado!");
         }
  
-        String placa = tela.inputPlaca();
-        Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
+        Veiculo veiculo;
+        if (funcionario.getCargo() == Cargo.DIRETORIA && ControladorVeiculo.getInstance().getTotalVeiculos() == 1) {
+            veiculo = ControladorVeiculo.getInstance().getVeiculoQuandoUnico();
+        } else if (funcionario.getCargo() != Cargo.DIRETORIA && ControladorPermissaoUsoVeiculo.getInstance().getPermissoesFuncionario(funcionario.getMatricula()).size() == 1) {
+            veiculo = ControladorPermissaoUsoVeiculo.getInstance().getPermissoesFuncionario(funcionario.getMatricula()).get(0).getVeiculo();
+        } else {
+            String placa = tela.inputPlaca();
+            veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
+        }
         
-        if (this.veiculoDisponivel(placa)) {
-            if (funcionario.getCargo() != Cargo.DIRETORIA) {
-                
+        if (this.veiculoDisponivel(veiculo.getPlaca())) {
+            if (funcionario.getCargo() != Cargo.DIRETORIA) {   
                  if (!ControladorPermissaoUsoVeiculo.getInstance().permissaoExiste(funcionario, veiculo)) {
                     funcionario.incrementaNumeroTentativasSemPermissao();
                     this.novoEvento(Evento.PERMISSAO_INSUFICIENTE, matricula, "");
                     if (funcionario.getNumeroTentativasSemPermissao() >= 3) {
                         funcionario.setBloqueado(true);
-                        this.novoEvento(Evento.ACESSO_BLOQUEADO, matricula, placa);
+                        this.novoEvento(Evento.ACESSO_BLOQUEADO, matricula, veiculo.getPlaca());
                         throw new Exception("Usuario bloqueado por excesso de tentativas sem permissao!");
                     }
                     throw new Exception("Voce nao possui permissoes de acesso a este veiculo! (" + funcionario.getNumeroTentativasSemPermissao() + "/3)");
@@ -84,9 +90,12 @@ public class ControladorClaviculario {
             }
             funcionario.resetNumeroTentativasSemPermissao();
             this.novaSaida(veiculo, funcionario);
+            return veiculo;
         } else {
-            this.novoEvento(Evento.VEICULO_INDISPONIVEL, matricula, placa);
-            throw new Exception("Veiculo indisponivel no momento");
+            this.novoEvento(Evento.VEICULO_INDISPONIVEL, matricula, veiculo.getPlaca());
+            throw new Exception(String.format("O veiculo %s %s %s, placa %s, esta indisponivel no momento",
+                                              veiculo.getMarca(), veiculo.getModelo(), veiculo.getAno(), 
+                                              veiculo.getPlaca()));
         }
     }
         
