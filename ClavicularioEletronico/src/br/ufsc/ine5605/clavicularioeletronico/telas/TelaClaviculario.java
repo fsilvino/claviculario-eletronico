@@ -20,12 +20,8 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("3) Relatorios");
             System.out.println("0) Voltar ao menu inicial");
         
-            try {
-                opcao = Integer.parseInt(this.teclado.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("A opcao precisa ser um numero!");
-            }
-            if (opcao <= 3  && opcao >= 0) {
+            opcao = inputOpcao();
+            if (opcao != 0) {
                 switch (opcao) {
                     case 1:
                         retirarChave();
@@ -36,9 +32,9 @@ public class TelaClaviculario extends TelaBase {
                     case 3:
                         exibeMenuRelatorios();
                         break;
+                    default:
+                        System.out.println("Informe uma opcao valida!");
                 }
-            } else {
-                System.out.println("Informe uma opcao valida!");
             }
         }
     }
@@ -51,15 +47,10 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("2) Pesquisa por funcionario");
             System.out.println("3) Pesquisa por veiculo ");
             System.out.println("4) Pesquisa por evento");
-            System.out.println("0) Sair");
+            System.out.println("0) Sair");           
+            opcao = inputOpcao();
             
-            try {
-                opcao = Integer.parseInt(this.teclado.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("A opcao precisa ser um numero!");
-            }
-            
-            if (opcao >= 0 && opcao <= 4) {
+            if (opcao != 0) {
                 switch (opcao) {
                     case 1:
                         break;
@@ -70,9 +61,9 @@ public class TelaClaviculario extends TelaBase {
                     case 4:
                         exibeMenuEventos();
                         break;
+                    default:
+                        System.out.println("Informe uma opcao valida!");
                 }
-            } else {
-                System.out.println("Informe uma opcao valida!");
             }
         }
     }
@@ -90,17 +81,13 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("7) Veiculo devolvido");
             System.out.println("0) Sair");
             
-            try {
-                opcao = Integer.parseInt(this.teclado.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("A opcao precisa ser um numero!");
-            }
+            opcao = inputOpcao();
         
-            if (opcao >=0 && opcao <= 7  ) {
+            if (opcao == -1) {
+                System.out.println("Informe uma opcao valida!");
+            } else if (opcao != 0) {
                 Evento evento = null;
-                
                 switch (opcao) {
-                        
                     case 1:
                         evento = Evento.ACESSO_PERMITIDO;
                         break;
@@ -122,15 +109,10 @@ public class TelaClaviculario extends TelaBase {
                     case 7:
                         evento = Evento.VEICULO_DEVOLVIDO;
                         break;
-                }
-                
+                }   
                 List<Listavel> relatorio = ControladorClaviculario.getInstance().geraRelatorioPorEvento(evento);
                 exibeRelatorios(relatorio);
-            
-            } else {
-                System.out.println("Informe uma opcao valida!");
             }
-        
         }
     }
     
