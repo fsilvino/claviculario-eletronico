@@ -19,14 +19,14 @@ public class ValidacaoDadosVeiculo {
     }
     
     public static boolean validaModelo(String modelo) throws Exception {
-        if (!modelo.matches("[a-zA-Z0-9]+")) {
+        if (!modelo.matches("^[^ ][a-zA-Z0-9 ]+")) {
             throw new Exception("Você deve digitar o modelo do carro.");
         }
         return true;
     }
     
     public static boolean validaMarca(String modelo) throws Exception {
-        if (!modelo.matches("[a-zA-Z0-9]+")) {
+        if (!modelo.matches("^[^ ][a-zA-Z0-9 ]+")) {
             throw new Exception("Você deve digitar a marca do carro.");
         }
         return true;

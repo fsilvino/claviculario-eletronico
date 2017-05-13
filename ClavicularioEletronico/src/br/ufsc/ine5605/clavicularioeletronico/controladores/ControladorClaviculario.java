@@ -8,6 +8,7 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
+import br.ufsc.ine5605.clavicularioeletronico.excecoes.PlacaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaClaviculario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
@@ -91,12 +92,19 @@ public class ControladorClaviculario {
         
     
     
-    public void devolverVeiculo(int matricula, String placa, int quilometragem) throws Exception {   
-        //validar matricula
+    public void devolverVeiculo() throws Exception {
+        int matricula = this.tela.inputMatricula();
+        if (!ControladorFuncionario.getInstance().funcionarioExiste(matricula)) {
+            throw new MatriculaNaoCadastradaException(matricula);
+        }
+        String placa = this.tela.inputPlaca();
+        if (!ControladorVeiculo.getInstance().veiculoExiste(placa)) {
+            throw new PlacaNaoCadastradaException(placa);
+        }
         boolean veiculoEncontrado = false;
         for (SaidaVeiculo veiculoFora : veiculosFora) {
             if((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
-                veiculoFora.getVeiculo().setQuilometragemAtual(quilometragem);
+                veiculoFora.getVeiculo().setQuilometragemAtual(this.tela.inputQuilometragemAtual());
                 this.veiculosFora.remove(veiculoFora);
                 this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
                 veiculoEncontrado = true;

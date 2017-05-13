@@ -24,7 +24,7 @@ public class TelaClaviculario extends TelaBase {
             } catch (NumberFormatException e) {
                 System.out.println("A opcao precisa ser um numero!");
             }
-            if (opcao < 3 || opcao > 0) {
+            if (opcao <= 3  && opcao >= 0) {
                 switch (opcao) {
                     case 1:
                         retirarChave();
@@ -51,9 +51,12 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("3) Pesquisa por veiculo ");
             System.out.println("4) Pesquisa por evento");
             System.out.println("0) Sair");
-        
-            if (this.teclado.hasNextInt()) {
-                opcao = this.teclado.nextInt();
+            try {
+                opcao = Integer.parseInt(this.teclado.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("A opcao precisa ser um numero!");
+            }
+            if (opcao >= 0 && opcao <= 3) {
                 switch (opcao) {
                     case 1:
                         break;
@@ -110,9 +113,7 @@ public class TelaClaviculario extends TelaBase {
     
     private void devolverChave() {
         try {
-            ControladorClaviculario.getInstance().devolverVeiculo(
-                    inputMatricula(), inputPlaca(), inputQuilometragemAtual()
-            );
+            ControladorClaviculario.getInstance().devolverVeiculo();
             System.out.println("Chave devolvida com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -122,6 +123,6 @@ public class TelaClaviculario extends TelaBase {
     
     private void exibeRelatorios (List<ItemListaCadastro> relatorio) {
         
-    }
-    
+    }    
+
 }
