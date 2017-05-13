@@ -2,7 +2,7 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosVeiculo;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
 public class TelaVeiculo extends TelaCadastro {
 
@@ -59,7 +59,7 @@ public class TelaVeiculo extends TelaCadastro {
     @Override
     public void exibeLista() {
         System.out.println("--------------Veiculos cadastrados---------------");
-        for (ItemListaCadastro item: ControladorVeiculo.getInstance().getListaItensCadastro()) {
+        for (Listavel item: ControladorVeiculo.getInstance().getListaItensCadastro()) {
             System.out.println(item.getDescricao());
         }
         System.out.println("-------------------------------------------------");
