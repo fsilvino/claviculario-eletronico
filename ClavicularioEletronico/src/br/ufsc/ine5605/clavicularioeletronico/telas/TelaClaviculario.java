@@ -44,20 +44,31 @@ public class TelaClaviculario extends TelaBase {
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("----------------Relatorios-----------------");
-            System.out.println("1) Exibe relatorio completo");
-            System.out.println("2) Pesquisa por funcionario");
-            System.out.println("3) Pesquisa por veiculo ");
-            System.out.println("4) Pesquisa por evento");
-            System.out.println("0) Sair");           
+            System.out.println("1) Exibir relatorio completo");
+            System.out.println("2) Pesquisar por funcionario");
+            System.out.println("3) Pesquisar por veiculo ");
+            System.out.println("4) Pesquisar por evento");
+            System.out.println("0) Voltar");           
             opcao = inputOpcao();
             
             if (opcao != 0) {
                 switch (opcao) {
                     case 1:
+                        this.exibeRelatorios(ControladorClaviculario.getInstance().geraRelatorioCompleto());
                         break;
                     case 2:
+                        try {
+                            this.exibeRelatorios(ControladorClaviculario.getInstance().geraRelatorioPorMatricula(inputMatricula()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                     case 3:
+                        try {
+                            this.exibeRelatorios(ControladorClaviculario.getInstance().geraRelatorioPorVeiculo(inputPlaca()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                     case 4:
                         exibeMenuEventos();
@@ -80,13 +91,11 @@ public class TelaClaviculario extends TelaBase {
             System.out.println("5) Permissao insuficiente");
             System.out.println("6) Veiculo indisponivel");
             System.out.println("7) Veiculo devolvido");
-            System.out.println("0) Sair");
+            System.out.println("0) Voltar");
             
             opcao = inputOpcao();
         
-            if (opcao == -1) {
-                System.out.println("Informe uma opcao valida!");
-            } else if (opcao != 0) {
+            if (opcao != 0) {
                 Evento evento = null;
                 switch (opcao) {
                     case 1:
@@ -110,9 +119,14 @@ public class TelaClaviculario extends TelaBase {
                     case 7:
                         evento = Evento.VEICULO_DEVOLVIDO;
                         break;
+                    default:
+                        System.out.println("Informe uma opcao valida!");
+                        break;
                 }   
-                List<Listavel> relatorio = ControladorClaviculario.getInstance().geraRelatorioPorEvento(evento);
-                exibeRelatorios(relatorio);
+                if (evento != null) {
+                    List<Listavel> relatorio = ControladorClaviculario.getInstance().geraRelatorioPorEvento(evento);
+                    exibeRelatorios(relatorio);
+                }
             }
         }
     }
@@ -144,14 +158,17 @@ public class TelaClaviculario extends TelaBase {
     }
     
     private void exibeRelatorios (List<Listavel> relatorio) {
-        System.out.println("---------------------------------Relatórios-----------------------------");
-        System.out.println("--------------Data--------------Evento--------------Matricula----Veiculo");
+        System.out.println("---------------------------------Relatorios-----------------------------");
+
         if (relatorio.isEmpty()) {
             System.out.println("Sem correspondencias na pesquisa");
+            System.out.println("------------------------------------------------------------------------");
         } else {
+            System.out.println("--------------Data--------------Evento--------------Matricula----Veiculo");
             for (Listavel evento : relatorio) {
                 System.out.println(evento.getDescricao());    
             }
+            System.out.println("------------------------------------------------------------------------");
         }
         solicitaEnterParaContinuar();
     }
