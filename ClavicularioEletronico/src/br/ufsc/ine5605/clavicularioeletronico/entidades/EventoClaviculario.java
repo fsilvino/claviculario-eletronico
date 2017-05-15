@@ -6,16 +6,13 @@ import java.util.Calendar;
 public class EventoClaviculario {
 
     private Evento evento;
-
-    private Calendar datahora;
-
+    private Calendar dataHora;
     private int matricula;
-
     private String placa;
 
-    public EventoClaviculario(Evento evento, Calendar datahora, int matricula, String placa) {
+    public EventoClaviculario(Evento evento, Calendar dataHora, int matricula, String placa) {
         this.evento = evento;
-        this.datahora = datahora;
+        this.dataHora = dataHora;
         this.matricula = matricula;
         this.placa = placa;
     }
@@ -28,12 +25,12 @@ public class EventoClaviculario {
         this.evento = evento;
     }
 
-    public Calendar getDatahora() {
-        return datahora;
+    public Calendar getDataHora() {
+        return dataHora;
     }
 
-    public void setDatahora(Calendar datahora) {
-        this.datahora = datahora;
+    public void setDataHora(Calendar dataHora) {
+        this.dataHora = dataHora;
     }
 
     public int getMatricula() {
@@ -51,6 +48,5 @@ public class EventoClaviculario {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-    
     
 }

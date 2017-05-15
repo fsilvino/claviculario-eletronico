@@ -179,19 +179,11 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
     }
     
     /**
-     * Retorna quantos veículos estão cadastrados
-     * @return Retorna quantidade de veículos cadastrados
-     */
-    public int getTotalVeiculos() {
-        return this.itens.size();
-    }
-    
-    /**
      * Retorna o veículo quando existe apenas um cadastrado
      * @return Retorna o veículo caso seja o único cadastrado, caso contrário retorna null
      */
     public Veiculo getVeiculoQuandoUnico() {
-        if (getTotalVeiculos() == 1) {
+        if (this.itens.size() == 1) {
             return this.itens.get(0);
         }
         return null;

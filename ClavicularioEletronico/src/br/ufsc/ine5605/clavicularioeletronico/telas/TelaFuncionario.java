@@ -30,7 +30,7 @@ public class TelaFuncionario extends TelaCadastro {
     @Override
     protected boolean executaOpcaoMenu(int opcao) {
         if (opcao == 5) {
-            ControladorSistema.getInstance().abreCadastroPermissaoUsoVeiculo();
+            ControladorFuncionario.getInstance().abreCadastroPermissaoUsoVeiculo();
             return true;
         }
         return super.executaOpcaoMenu(opcao);

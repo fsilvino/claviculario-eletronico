@@ -11,15 +11,10 @@ import java.util.Date;
 public class DadosFuncionario {
 
     private int matricula;
-
     private String nome;
-
     private Date nascimento;
-
     private String telefone;
-
     private Cargo cargo;
-
     private boolean bloqueado;
 
     public DadosFuncionario() {

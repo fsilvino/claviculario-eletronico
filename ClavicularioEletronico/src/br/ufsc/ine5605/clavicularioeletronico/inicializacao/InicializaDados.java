@@ -1,4 +1,4 @@
-package br.ufsc.ine5605.clavicularioeletronico;
+package br.ufsc.ine5605.clavicularioeletronico.inicializacao;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.*;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
@@ -13,11 +13,11 @@ import java.util.Date;
  */
 public class InicializaDados {
     
-    public InicializaDados() {
+    private InicializaDados() {
         
     }
     
-    public void insere() {
+    public static void insere() {
         try {
             Calendar c = Calendar.getInstance();
             c.set(1980, 1, 1);
