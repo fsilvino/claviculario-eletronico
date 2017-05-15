@@ -115,11 +115,15 @@ public class ControladorClaviculario {
         boolean veiculoEncontrado = false;
         for (SaidaVeiculo veiculoFora : veiculosFora) {
             if((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
-                veiculoFora.getVeiculo().setQuilometragemAtual(this.tela.inputQuilometragemAtual());
-                this.veiculosFora.remove(veiculoFora);
-                this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
-                veiculoEncontrado = true;
-                break;
+                if (veiculoFora.getFuncionario().getMatricula() == matricula) {
+                    veiculoFora.getVeiculo().setQuilometragemAtual(this.tela.inputQuilometragemAtual());
+                    this.veiculosFora.remove(veiculoFora);
+                    this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
+                    veiculoEncontrado = true;
+                    break;
+                } else {
+                    throw new Exception("O veiculo com placa " + placa + " nao foi retirado com a matricula " + matricula + ".");
+                }
             }
         }
         if (!veiculoEncontrado) {
@@ -127,7 +131,7 @@ public class ControladorClaviculario {
         }
     }
         
-    private boolean veiculoDisponivel(String placa) {
+    public boolean veiculoDisponivel(String placa) {
         
         for (SaidaVeiculo veiculoFora : veiculosFora) {
             if ((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
@@ -135,6 +139,16 @@ public class ControladorClaviculario {
             }
         }
         return true;
+    }
+    
+    public boolean funcionarioEstaUtilizandoAlgumVeiculo(int matricula) throws Exception {
+        Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
+        for (SaidaVeiculo veiculoFora : veiculosFora) {
+            if (veiculoFora.getFuncionario().getMatricula() == funcionario.getMatricula()) {
+                return true;
+            }
+        }
+        return false;
     }
     
     private void novoEvento(Evento evento, int matricula, String placa) {

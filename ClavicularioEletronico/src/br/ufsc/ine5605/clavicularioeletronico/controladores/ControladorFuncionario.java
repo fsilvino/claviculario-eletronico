@@ -86,6 +86,12 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
         if (funcionario == null) {
             throw new MatriculaNaoCadastradaException(matricula);
         }
+        
+        if (ControladorClaviculario.getInstance().funcionarioEstaUtilizandoAlgumVeiculo(matricula)) {
+            throw new Exception("Este funcionario esta possui chave(s) a ser(em) devolvida(s).\n" +
+                                "Nao sera possivel excluir ate que todas sejam devolvidas.");
+        }
+        
         itens.remove(funcionario);
     }
 
