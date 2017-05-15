@@ -123,7 +123,7 @@ public class ControladorClaviculario {
             }
         }
         if (!veiculoEncontrado) {
-            throw new Exception("Veiculo encontra-se na garegem");
+            throw new Exception("Veiculo encontra-se na garagem");
         }
     }
         
@@ -138,22 +138,25 @@ public class ControladorClaviculario {
     }
     
     private void novoEvento(Evento evento, int matricula, String placa) {
-        Calendar dataHora = Calendar.getInstance();           //verificar como pegar a hora
+        Calendar dataHora = Calendar.getInstance();           
         EventoClaviculario novoEvento = new EventoClaviculario(evento,dataHora, matricula, placa);
         this.log.add(novoEvento);
         
     }
     
+<<<<<<< HEAD
     private void novaSaida(Veiculo veiculo, Funcionario funcionario) {
         Calendar dataHora = Calendar.getInstance();         //verificar como pegar a hora
+=======
+    private void novaSaida(Veiculo veiculo, Funcionario funcionario){
+        Calendar dataHora = Calendar.getInstance();         
+>>>>>>> master
         SaidaVeiculo novaSaida = new SaidaVeiculo(veiculo, funcionario, dataHora);
         this.veiculosFora.add(novaSaida);
         this.novoEvento(Evento.ACESSO_PERMITIDO, funcionario.getMatricula(), veiculo.getPlaca());
     } 
     
-     //relatório de acessos a veículos, onde seja possível pesquisar/filtrar por:
-     //motivo de negação/permissão, pela matrícula do funcionário ou pela placa do veículo.
-     public List<Listavel> geraRelatorioPorEvento (Evento evento) {
+    public List<Listavel> geraRelatorioPorEvento (Evento evento) {
          
          List<Listavel> relatorio = new ArrayList();
          for (EventoClaviculario item : log) {
@@ -185,7 +188,7 @@ public class ControladorClaviculario {
          return relatorio;
      }
      
-     public List<Listavel> geraRelatorioPorVeiculo(String placa) {
+    public List<Listavel> geraRelatorioPorVeiculo(String placa) {
          
          List<Listavel> relatorio = new ArrayList();
          for (EventoClaviculario item : log) {
@@ -201,12 +204,20 @@ public class ControladorClaviculario {
          return relatorio;
      }
      
+<<<<<<< HEAD
      public List<Listavel> geraRelatorioCompleto() {
+=======
+    public List<Listavel> geraRelatorioCompleto() {
+>>>>>>> master
          
         List<Listavel> relatorio = new ArrayList();
         for (EventoClaviculario item : log) {
             String descricao = String.format("%s\t%s\t%s\t%s",                       
+<<<<<<< HEAD
                     item.getDataHora().getTime().toString(),
+=======
+                    item.getDatahora().getTime().toString(),
+>>>>>>> master
                     item.getEvento(),
                     item.getMatricula(),
                     item.getPlaca());
