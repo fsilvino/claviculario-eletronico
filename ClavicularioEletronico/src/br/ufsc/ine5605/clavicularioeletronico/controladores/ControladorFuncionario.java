@@ -2,12 +2,15 @@ package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Funcionario;
+import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
+import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaJaCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,24 +58,42 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
                 copiaDadosParaFuncionario(dadosFuncionario, funcionario);
                 itens.add(funcionario);
             } else {
-                throw new Exception("Ja existe um funcionario cadastrado com a matricula: " + dadosFuncionario.getMatricula());
+                throw new MatriculaJaCadastradaException(dadosFuncionario.getMatricula());
             }
         }
     }
 
     /**
      * Altera os dados do funcionario baseado na matrícula
-     * @param dadosFuncionario Dados do funcionario a ser alterado
+     * @param matricula Matricula do funcionario a ser alterado
      * @throws Exception Caso os dados sejam inválidos ou não exista um funcionario cadastrado com a matrícula informada
      */
-    public void altera(DadosFuncionario dadosFuncionario) throws Exception {
-        if (validaDadosFuncionario(dadosFuncionario)) {
-            Funcionario funcionario = findFuncionarioPelaMatricula(dadosFuncionario.getMatricula());
-            if (funcionario != null) {
-                copiaDadosParaFuncionario(dadosFuncionario, funcionario);
-            } else {
-                throw new MatriculaNaoCadastradaException(dadosFuncionario.getMatricula());
+    public void altera(int matricula) throws Exception {
+        if (!funcionarioExiste(matricula)) {
+            throw new MatriculaNaoCadastradaException(matricula);
+        }
+        Funcionario funcionario = findFuncionarioPelaMatricula(matricula);
+        String nome = funcionario.getNome();
+        Date nascimento = funcionario.getNascimento();
+        String telefone = funcionario.getTelefone();
+        Cargo cargo = funcionario.getCargo();
+        if (funcionario != null) {
+            this.tela.exibeCadastro(getDetalhesFuncionario(funcionario));
+            if (this.tela.alteraNome()) {
+                nome = this.tela.inputNome();
             }
+            if (this.tela.alteraDataNascimento()) {
+                nascimento = this.tela.inputDataNascimento();
+            }
+            if (this.tela.alteraTelefone()) {
+                telefone = this.tela.inputTelefone();
+            }
+            if (this.tela.alteraCargo()) {
+                cargo = this.tela.inputCargo();
+            }
+            
+            DadosFuncionario dadosFuncionario = new DadosFuncionario(matricula, nome, nascimento, telefone, cargo, true);
+            copiaDadosParaFuncionario(dadosFuncionario, funcionario);
         }
     }
 
@@ -88,11 +109,16 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
         }
         
         if (ControladorClaviculario.getInstance().funcionarioEstaUtilizandoAlgumVeiculo(matricula)) {
-            throw new Exception("Este funcionario esta possui chave(s) a ser(em) devolvida(s).\n" +
+            throw new Exception("Este funcionario possui chave(s) a ser(em) devolvida(s).\n" +
                                 "Nao sera possivel excluir ate que todas sejam devolvidas.");
         }
-        
-        itens.remove(funcionario);
+        if (this.tela.pedeConfirmacaoExclusao(funcionario.getNome(), funcionario.getMatricula())) {
+            ControladorPermissaoUsoVeiculo.getInstance().excluirPermissoesFuncionario(funcionario);
+            itens.remove(funcionario);
+        }
+        else {
+            throw new Exception("Operacao cancelada!");
+        }
     }
 
     /**
@@ -181,8 +207,7 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
      * @param matricula Matrícula a ser pesquisada
      * @return true se o funcionário existe, false se não foi encontrado
      */
-    
-    public boolean funcionarioExiste(int matricula) {
+        public boolean funcionarioExiste(int matricula) {
         return findFuncionarioPelaMatricula(matricula) != null;
     }
 
@@ -190,4 +215,7 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
         ControladorPermissaoUsoVeiculo.getInstance().inicia();
     }
     
+    private ItemListaCadastro getDetalhesFuncionario(Funcionario funcionario) {
+        return new ItemListaCadastro("Nome: "+funcionario.getNome()+"\nData de nascimento: "+funcionario.getNascimento()+"\nTelefone: "+funcionario.getTelefone()+"\nCargo: "+funcionario.getCargo());
+    }
 }

@@ -40,7 +40,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
     @Override
     public void exibeTelaInclui() {
         try {
-            ControladorPermissaoUsoVeiculo.getInstance().inclui(inputMatricula(), inputPlaca());
+            ControladorPermissaoUsoVeiculo.getInstance().inclui();
             System.out.println("Permissao cadastrada com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -56,7 +56,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
     @Override
     public void exibeTelaExclui() {
         try {
-            ControladorPermissaoUsoVeiculo.getInstance().exclui(inputMatricula(), inputPlaca());
+            ControladorPermissaoUsoVeiculo.getInstance().exclui();
             System.out.println("Permissao excluida com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -81,5 +81,11 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
             System.out.println(e.getMessage());
         }
         solicitaEnterParaContinuar();
+    }
+    
+    public boolean pedeConfirmacaoExclusao(int matricula, String placa) {
+        System.out.println("Deseja mesmo excluir a permissão:");
+        System.out.println("Matricula: "+matricula+"\tPlaca: "+placa);
+        return pedeConfirmacao();
     }
 }

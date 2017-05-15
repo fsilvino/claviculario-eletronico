@@ -2,6 +2,7 @@ package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
+import br.ufsc.ine5605.clavicularioeletronico.excecoes.PlacaJaCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.PlacaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
@@ -55,24 +56,40 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
                 copiaDadosParaVeiculo(dadosVeiculo, veiculo);
                 itens.add(veiculo);
             } else {
-                throw new Exception("Falha ao incluir o veiculo!\nJa existe um veiculo cadastrado com a placa: " + dadosVeiculo.getPlaca());
+                throw new PlacaJaCadastradaException(dadosVeiculo.getPlaca());
             }
         }
     }
 
     /**
      * Altera os dados do veiculo baseado na placa
-     * @param dadosVeiculo Dados do veiculo para alteracao
+     * @param placa Placa do veiculo para alteracao
      * @throws Exception Caso os dados sejam invalidos ou nao encontre a placa
      */
-    public void altera(DadosVeiculo dadosVeiculo) throws Exception {
-        if (validaDadosVeiculo(dadosVeiculo)) {
-            Veiculo veiculo = findVeiculoPelaPlaca(dadosVeiculo.getPlaca());
-            if (veiculo != null) {
-                copiaDadosParaVeiculo(dadosVeiculo, veiculo);
-            } else {
-                throw new PlacaNaoCadastradaException(dadosVeiculo.getPlaca());
+    public void altera(String placa) throws Exception {
+        Veiculo veiculo = findVeiculoPelaPlaca(placa);
+        if (veiculo != null) {
+            String marca = veiculo.getMarca();
+            String modelo = veiculo.getModelo();
+            int ano = veiculo.getAno();
+            int quilometragemAtual = veiculo.getQuilometragemAtual();
+            this.tela.exibeCadastro(getDetalhesVeiculo(veiculo));
+            if (this.tela.alteraMarca()) {
+                marca = this.tela.inputMarca();
             }
+            if (this.tela.alteraModelo()) {
+                modelo = this.tela.inputModelo();
+            }
+            if (this.tela.alteraAno()) {
+                ano = this.tela.inputAno();
+            }
+            if (this.tela.alteraQuilometragem()) {
+                quilometragemAtual = this.tela.inputQuilometragemAtual();
+            }
+            DadosVeiculo dadosVeiculo = new DadosVeiculo(placa, marca, modelo, ano, quilometragemAtual);
+            copiaDadosParaVeiculo(dadosVeiculo, veiculo); 
+        } else {
+            throw new PlacaNaoCadastradaException(placa);
         }
     }
 
@@ -94,8 +111,13 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
         if (!ControladorClaviculario.getInstance().veiculoDisponivel(veiculo.getPlaca())) {
             throw new Exception("Este veiculo esta sendo utilizado! Para excluir ele deve ser devolvido primeiro.");
         }
-        
-        itens.remove(veiculo);
+        if (this.tela.pedeConfirmacaoExclusao(veiculo.getModelo(), veiculo.getPlaca())) {
+            ControladorPermissaoUsoVeiculo.getInstance().excluirPermissoesVeiculo(veiculo);
+            itens.remove(veiculo);
+        }
+        else {
+            throw new Exception("Operacao cancelada!");
+        }
     }
 
     /**
@@ -192,6 +214,10 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
             return this.itens.get(0);
         }
         return null;
+    }
+    
+    private ItemListaCadastro getDetalhesVeiculo(Veiculo veiculo) {
+        return new ItemListaCadastro("Marca: "+veiculo.getMarca()+"\nModelo: "+veiculo.getModelo()+"\nAno: "+veiculo.getAno()+"\nQuilometragem: "+veiculo.getQuilometragemAtual());
     }
     
 }

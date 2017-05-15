@@ -1,5 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+
 public abstract class TelaCadastro extends TelaBase {
     
     public TelaCadastro() {
@@ -48,11 +50,17 @@ public abstract class TelaCadastro extends TelaBase {
             exibeOpcoesMenu();
             opcao = inputOpcao();
             if (opcao != 0) {
-                if (executaOpcaoMenu(opcao)) {
+                if (!executaOpcaoMenu(opcao)) {
                     System.out.println("Informe uma opcao valida!");
                 }
             }
         }             
+    }
+    
+    public void exibeCadastro(ItemListaCadastro item) {
+       System.out.println("----------------Dados Cadastrados----------------");
+       System.out.println(item.getDescricao());
+       System.out.println("-------------------------------------------------");
     }
     
 }
