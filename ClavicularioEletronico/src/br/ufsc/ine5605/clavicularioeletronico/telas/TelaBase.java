@@ -110,7 +110,7 @@ public abstract class TelaBase {
     }
     
     public String inputMarca() throws Exception{
-        System.out.println("Digite o marca do veiculo: ");
+        System.out.println("Digite a marca do veiculo: ");
         String marca = this.teclado.nextLine();
         ValidacaoDadosVeiculo.validaMarca(marca);
         return marca;
@@ -135,4 +135,15 @@ public abstract class TelaBase {
         }
         return quilometragemAtual;
     }
+    
+    public String inputConfirmacao() {
+        System.out.println("(S/N):");
+        return this.teclado.nextLine();
+    }
+    
+    protected boolean pedeConfirmacao() {
+        String opcao = inputConfirmacao().toLowerCase();
+        return opcao.matches("s|sim|y|yes");
+    }
+    
 }

@@ -5,6 +5,7 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.PermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.CadastroInvalidoPermissaoUsoVeiculoDiretoria;
+import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaPermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
@@ -47,7 +48,6 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
      */
     public void inclui(int matricula, String placa) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
-        
         if (funcionario.getCargo() == Cargo.DIRETORIA) {
             throw new Exception("Este funcionario tem acesso a todos os veiculos pois seu cargo eh de diretoria.\n" +
                                 "Nao sera possivel cadastrar os veiculos nesta opcao.");
@@ -60,6 +60,19 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         }
         
         itens.add(new PermissaoUsoVeiculo(funcionario, veiculo));
+    }
+    
+     /**
+     * Inclui a permissão de uso a um veículo para um funcionário
+     * @throws Exception Caso a matricula não exista
+     */
+    public void inclui() throws Exception {
+        int matricula = this.tela.inputMatricula();
+        if (!ControladorFuncionario.getInstance().funcionarioExiste(matricula)) {
+            throw new MatriculaNaoCadastradaException(matricula);
+        }
+        String placa = this.tela.inputPlaca();
+        inclui(matricula, placa);
     }
     
     /**
@@ -75,6 +88,19 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         }
         
         itens.remove(permissao);
+    }
+    
+    /**
+     * Remove a permissão de uso de um veículo de um funcionário pela matrícula e placa
+     * @throws Exception Caso a matricula nao exista
+     */
+    public void exclui() throws Exception {
+        int matricula = this.tela.inputMatricula();
+        if (!ControladorFuncionario.getInstance().funcionarioExiste(matricula)) {
+            throw new MatriculaNaoCadastradaException(matricula);
+        }
+        String placa = this.tela.inputPlaca();
+        exclui(matricula, placa);
     }
     
     public List<PermissaoUsoVeiculo> getPermissoesFuncionario(int matricula) throws Exception {
@@ -124,6 +150,23 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     
     public boolean permissaoExiste(Funcionario funcionario, Veiculo veiculo) throws Exception {
         return findPermissaoUsoVeiculo(funcionario, veiculo) != null;
+    }
+    
+    public void excluirPermissoesFuncionario(Funcionario funcionario) throws Exception {
+        if (funcionario.getCargo() == Cargo.MOTORISTA) {
+            for (PermissaoUsoVeiculo permissao : getPermissoesFuncionario(funcionario.getMatricula())) {
+                itens.remove(permissao);
+            }
+        }
+    }
+    
+    public void excluirPermissoesVeiculo(Veiculo veiculo) {
+        List<PermissaoUsoVeiculo> listaPermissao = new ArrayList<>(itens);
+        for (PermissaoUsoVeiculo permissao: listaPermissao) {
+            if (permissao.getVeiculo().getPlaca().equals(veiculo.getPlaca())) {
+                itens.remove(permissao);
+            }
+        }
     }
     
 }
