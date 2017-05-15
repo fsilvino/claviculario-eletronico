@@ -68,8 +68,13 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
      */
     public void inclui() throws Exception {
         int matricula = this.tela.inputMatricula();
-        if (!ControladorFuncionario.getInstance().funcionarioExiste(matricula)) {
+        Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
+        if (funcionario == null) {
             throw new MatriculaNaoCadastradaException(matricula);
+        }
+        if (funcionario.getCargo() == Cargo.DIRETORIA) {
+            throw new Exception("Este funcionario tem acesso a todos os veiculos pois seu cargo eh de diretoria.\n" +
+                                "Nao sera possivel cadastrar os veiculos nesta opcao.");
         }
         String placa = this.tela.inputPlaca();
         inclui(matricula, placa);
@@ -86,8 +91,9 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         if (permissao == null) {
             throw new Exception(String.format("O funcionario de matricula {0} nao possui permissao de uso para o veiculo de placa {1}", matricula, placa));
         }
-        
-        itens.remove(permissao);
+        if (this.tela.pedeConfirmacaoExclusao(matricula, placa)) {
+            itens.remove(permissao);   
+        }
     }
     
     /**

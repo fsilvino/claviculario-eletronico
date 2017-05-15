@@ -82,4 +82,10 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
         }
         solicitaEnterParaContinuar();
     }
+    
+    public boolean pedeConfirmacaoExclusao(int matricula, String placa) {
+        System.out.println("Deseja mesmo excluir a permissão:");
+        System.out.println("Matricula: "+matricula+"\tPlaca: "+placa);
+        return pedeConfirmacao();
+    }
 }
