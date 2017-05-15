@@ -90,6 +90,11 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
         if (veiculo == null) {
             throw new PlacaNaoCadastradaException(placa);
         }
+        
+        if (!ControladorClaviculario.getInstance().veiculoDisponivel(veiculo.getPlaca())) {
+            throw new Exception("Este veiculo esta sendo utilizado! Para excluir ele deve ser devolvido primeiro.");
+        }
+        
         itens.remove(veiculo);
     }
 
