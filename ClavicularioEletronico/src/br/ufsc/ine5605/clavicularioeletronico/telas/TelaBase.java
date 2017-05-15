@@ -30,7 +30,7 @@ public abstract class TelaBase {
         System.out.print("Opção escolhida: ");
         int opcao;
         try {
-            opcao = Integer.parseInt(this.teclado.nextLine());
+            opcao = Integer.parseInt(this.teclado.nextLine().trim());
         } catch (NumberFormatException e) {
             System.out.println("A opcao precisa ser um numero!");
             opcao = -1;
@@ -44,7 +44,7 @@ public abstract class TelaBase {
         int matricula = -1;
         while (tentativa < 3) {
             System.out.println("Digite a matricula: ");
-            input = this.teclado.nextLine();
+            input = this.teclado.nextLine().trim();
             if (ValidacaoDadosFuncionario.validaMatricula(input)) {
                 matricula = Integer.parseInt(input);
                 return matricula;
@@ -58,7 +58,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite o nome do funcionario: ");
-            String nome = this.teclado.nextLine();
+            String nome = this.teclado.nextLine().trim();
             if (ValidacaoDadosFuncionario.validaNome(nome)) {
                 return nome;
             }
@@ -72,7 +72,7 @@ public abstract class TelaBase {
         Date nascimento = null;
         while (tentativa < 3) {
             System.out.println("Digite a data de nascimento do funcionário (dd/mm/aaaa): ");
-            String data = this.teclado.nextLine();
+            String data = this.teclado.nextLine().trim();
             if (ValidacaoDadosFuncionario.validaDataNascimento(data)) {
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 try {
@@ -90,7 +90,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite o telefone do funcionário: ");
-            String telefone = this.teclado.nextLine();
+            String telefone = this.teclado.nextLine().trim();
             if (ValidacaoDadosFuncionario.validaTelefone(telefone)) {
                 return telefone;    
             }
@@ -105,7 +105,7 @@ public abstract class TelaBase {
             System.out.println("Digite o cargo do funcionário");
             System.out.println("1 - Diretoria");       
             System.out.println("2 - Motorista:");
-            String input = this.teclado.nextLine();
+            String input = this.teclado.nextLine().trim();
             int opcao = 0;
             if (ValidacaoDadosFuncionario.validaCargo(input)) {
                 opcao = Integer.parseInt(input);
@@ -125,7 +125,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite a placa do veiculo. Ex: (AAA-9999): ");
-            String placa = this.teclado.nextLine();
+            String placa = this.teclado.nextLine().trim();
             if (ValidacaoDadosVeiculo.validaPlaca(placa)) {
                 return placa;
             }
@@ -138,7 +138,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite o modelo do veiculo: ");
-            String modelo = this.teclado.nextLine();
+            String modelo = this.teclado.nextLine().trim();
             if (ValidacaoDadosVeiculo.validaModelo(modelo)) {
                 return modelo;    
             }
@@ -151,7 +151,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite a marca do veiculo: ");
-            String marca = this.teclado.nextLine();
+            String marca = this.teclado.nextLine().trim();
             if (ValidacaoDadosVeiculo.validaMarca(marca)) {
             return marca;    
             }
@@ -164,7 +164,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite o ano do veiculo: ");
-            String input = this.teclado.nextLine();
+            String input = this.teclado.nextLine().trim();
             if (ValidacaoDadosVeiculo.validaAno(input)) { 
                 return Integer.parseInt(input);
             }
@@ -177,7 +177,7 @@ public abstract class TelaBase {
         int tentativa = 0;
         while (tentativa < 3) {
             System.out.println("Digite a quilometragem atual do veiculo: ");
-            String input = this.teclado.nextLine();
+            String input = this.teclado.nextLine().trim();
             if (ValidacaoDadosVeiculo.validaQuilometragem(input)) {
                 return Integer.parseInt(input);
             }
