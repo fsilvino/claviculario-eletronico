@@ -75,7 +75,7 @@ public class ControladorClaviculario {
         }
         
         if (veiculo == null) {
-            String placa = tela.inputPlaca();
+            String placa = this.tela.inputPlaca();
             veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
         }
         

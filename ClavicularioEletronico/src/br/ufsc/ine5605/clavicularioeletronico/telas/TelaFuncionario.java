@@ -1,8 +1,9 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorFuncionario;
-import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorSistema;
+import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaJaCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosFuncionario;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
 public class TelaFuncionario extends TelaCadastro {
@@ -51,8 +52,7 @@ public class TelaFuncionario extends TelaCadastro {
     @Override
     public void exibeTelaAltera() {
         try {
-            DadosFuncionario alteraFuncionario = entradaDadosFuncionario();
-            ControladorFuncionario.getInstance().altera(alteraFuncionario);
+            ControladorFuncionario.getInstance().altera(inputMatricula());
             System.out.println("Funcionário alterado com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -82,8 +82,37 @@ public class TelaFuncionario extends TelaCadastro {
     }
     
     public DadosFuncionario entradaDadosFuncionario() throws Exception {
-        return new DadosFuncionario(inputMatricula(), inputNome(), inputDataNascimento(), inputTelefone(), inputCargo(), false);
+        int matricula = inputMatricula();
+        if (ControladorFuncionario.getInstance().funcionarioExiste(matricula)) {
+            throw new MatriculaJaCadastradaException(matricula);
+        }
+        return new DadosFuncionario(matricula, inputNome(), inputDataNascimento(), inputTelefone(), inputCargo(), false);
     }
     
-
+    public boolean pedeConfirmacaoExclusao(String nome, int matricula) {
+        System.out.println("Deseja mesmo excluir o funcionario:");
+        System.out.println("Nome: "+nome+"\tMatricula: "+matricula);
+        return pedeConfirmacao();
+    }
+    
+   
+    public boolean alteraNome() {
+        System.out.println("Deseja alterar nome?");
+        return pedeConfirmacao();
+    }
+    
+    public boolean alteraDataNascimento() {
+        System.out.println("Deseja alterar data de nascimento?");
+        return pedeConfirmacao();
+    }
+    
+    public boolean alteraTelefone() {
+        System.out.println("Deseja alterar telefone?");
+        return pedeConfirmacao();
+    }
+    
+    public boolean alteraCargo() {
+        System.out.println("Deseja alterar cargo?");
+        return pedeConfirmacao();
+    }
 }
