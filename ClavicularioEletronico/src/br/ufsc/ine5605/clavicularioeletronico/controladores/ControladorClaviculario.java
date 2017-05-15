@@ -123,7 +123,7 @@ public class ControladorClaviculario {
             }
         }
         if (!veiculoEncontrado) {
-            throw new Exception("Veiculo encontra-se na garegem");
+            throw new Exception("Veiculo encontra-se na garagem");
         }
     }
         
