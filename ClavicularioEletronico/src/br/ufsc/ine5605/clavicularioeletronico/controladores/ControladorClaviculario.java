@@ -200,5 +200,20 @@ public class ControladorClaviculario {
          }
          return relatorio;
      }
+     
+     public List<Listavel> geraRelatorioCompleto() {
+         
+        List<Listavel> relatorio = new ArrayList();
+        for (EventoClaviculario item : log) {
+            String descricao = String.format("%s\t%s\t%s\t%s",                       
+                    item.getDataHora().getTime().toString(),
+                    item.getEvento(),
+                    item.getMatricula(),
+                    item.getPlaca());
+                relatorio.add(new ItemListaCadastro(descricao));
+   
+        }
+        return relatorio;
+    }
     
 }
