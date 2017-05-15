@@ -5,7 +5,6 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.PermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.CadastroInvalidoPermissaoUsoVeiculoDiretoria;
-import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaPermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
