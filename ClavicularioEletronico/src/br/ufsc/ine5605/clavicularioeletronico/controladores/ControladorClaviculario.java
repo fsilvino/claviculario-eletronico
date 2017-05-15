@@ -8,8 +8,10 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Evento;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
+import br.ufsc.ine5605.clavicularioeletronico.excecoes.PlacaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaClaviculario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
  * Implementa a funcionalidade do Claviculario propriamente dita:
  * a liberação e a recepção das chaves conforme as configurações
  * do sistema e salva o log de eventos
- * @author Diogo
+ * @author Flávio
  * **/
  
 public class ControladorClaviculario {
@@ -43,15 +45,12 @@ public class ControladorClaviculario {
 
     public void inicia() {
         tela.exibeMenu();
+       // retirar chave, devolver chave
+       //relatorio de acessos
     }
     
-    public void retirarChave() throws Exception {
+    public void retirarChave(int matricula) throws Exception {
         
-        int matricula = tela.pedeMatricula();
-        if (matricula == 0) {
-            
-            throw new Exception("Matricula inválida");
-        }
         Funcionario funcionario = null;
         
         try {
@@ -66,7 +65,7 @@ public class ControladorClaviculario {
             throw new Exception("Usuario encontra-se bloqueado!");
         }
  
-        String placa = tela.pedePlaca();
+        String placa = tela.inputPlaca();
         Veiculo veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
         
         if (this.veiculoDisponivel(placa)) {
@@ -93,17 +92,28 @@ public class ControladorClaviculario {
         
     
     
-    public void devolverVeiculo(int matricula, String placa, int quilometragem) {   
-        //validar matricula
-        
+    public void devolverVeiculo() throws Exception {
+        int matricula = this.tela.inputMatricula();
+        if (!ControladorFuncionario.getInstance().funcionarioExiste(matricula)) {
+            throw new MatriculaNaoCadastradaException(matricula);
+        }
+        String placa = this.tela.inputPlaca();
+        if (!ControladorVeiculo.getInstance().veiculoExiste(placa)) {
+            throw new PlacaNaoCadastradaException(placa);
+        }
+        boolean veiculoEncontrado = false;
         for (SaidaVeiculo veiculoFora : veiculosFora) {
             if((veiculoFora.getVeiculo().getPlaca().equals(placa))) {
-                veiculoFora.getVeiculo().setQuilometragemAtual(quilometragem);
+                veiculoFora.getVeiculo().setQuilometragemAtual(this.tela.inputQuilometragemAtual());
                 this.veiculosFora.remove(veiculoFora);
                 this.novoEvento(Evento.VEICULO_DEVOLVIDO, matricula, placa);
+                veiculoEncontrado = true;
                 break;
             }
-        } 
+        }
+        if (!veiculoEncontrado) {
+            throw new Exception("Veiculo encontra-se na garegem");
+        }
     }
         
     private boolean veiculoDisponivel(String placa) {
@@ -126,58 +136,58 @@ public class ControladorClaviculario {
     private void novaSaida(Veiculo veiculo, Funcionario funcionario){
         Calendar dataHora = Calendar.getInstance();         //verificar como pegar a hora
         SaidaVeiculo novaSaida = new SaidaVeiculo(veiculo, funcionario, dataHora);
-        this.veiculosFora.add(novaSaida);  
+        this.veiculosFora.add(novaSaida);
         this.novoEvento(Evento.ACESSO_PERMITIDO, funcionario.getMatricula(), veiculo.getPlaca());
     } 
     
-    //relatório de acessos a veículos, onde seja possível pesquisar/filtrar por:
-    //motivo de negação/permissão, pela matrícula do funcionário ou pela placa do veículo.
-    public List<ItemListaCadastro> geraRelatorioPorEvento (Evento evento) {
-        
-        List<ItemListaCadastro> relatorio = new ArrayList();
-        for (EventoClaviculario item : log) {
-            if (item.getEvento().equals(evento)) {
-                String descricao = String.format("%s\t%s\t%s\t%s",                       
-                        item.getDatahora().getTime().toString(),
-                        item.getEvento(),
-                        item.getMatricula(),
-                        item.getPlaca());
-                relatorio.add(new ItemListaCadastro(descricao));
-            }
-        }
-        return relatorio;
-    }
+     //relatório de acessos a veículos, onde seja possível pesquisar/filtrar por:
+     //motivo de negação/permissão, pela matrícula do funcionário ou pela placa do veículo.
+     public List<Listavel> geraRelatorioPorEvento (Evento evento) {
+         
+         List<Listavel> relatorio = new ArrayList();
+         for (EventoClaviculario item : log) {
+             if (item.getEvento().equals(evento)) {
+                 String descricao = String.format("%s\t%s\t%s\t%s",                       
+                         item.getDatahora().getTime().toString(),
+                         item.getEvento(),
+                         item.getMatricula(),
+                         item.getPlaca());
+                 relatorio.add(new ItemListaCadastro(descricao));
+             }
+         }
+         return relatorio;
+     }
+     
+    public List<Listavel> geraRelatorioPorMatricula(int matricula) {
+         
+         List<Listavel> relatorio = new ArrayList();
+         for (EventoClaviculario item : log) {
+             if (item.getMatricula() == matricula) {
+                 String descricao = String.format("%s\t%s\t%s\t%s",                       
+                         item.getDatahora().getTime().toString(),
+                         item.getEvento(),
+                         item.getMatricula(),
+                         item.getPlaca());
+                 relatorio.add(new ItemListaCadastro(descricao));
+             }
+         }
+         return relatorio;
+     }
+     
+     public List<Listavel> geraRelatorioPorVeiculo(String placa) {
+         
+         List<Listavel> relatorio = new ArrayList();
+         for (EventoClaviculario item : log) {
+             if (item.getPlaca().equals(placa)) {
+                 String descricao = String.format("%s\t%s\t%s\t%s",                       
+                         item.getDatahora().getTime().toString(),
+                         item.getEvento(),
+                         item.getMatricula(),
+                         item.getPlaca());
+                 relatorio.add(new ItemListaCadastro(descricao));
+             }
+         }
+         return relatorio;
+     }
     
-   public List<ItemListaCadastro> geraRelatorioPorMatricula(int matricula) {
-        
-        List<ItemListaCadastro> relatorio = new ArrayList();
-        for (EventoClaviculario item : log) {
-            if (item.getMatricula() == matricula) {
-                String descricao = String.format("%s\t%s\t%s\t%s",                       
-                        item.getDatahora().getTime().toString(),
-                        item.getEvento(),
-                        item.getMatricula(),
-                        item.getPlaca());
-                relatorio.add(new ItemListaCadastro(descricao));
-            }
-        }
-        return relatorio;
-    }
-    
-    public List<ItemListaCadastro> geraRelatorioPorVeiculo(String placa) {
-        
-        List<ItemListaCadastro> relatorio = new ArrayList();
-        for (EventoClaviculario item : log) {
-            if (item.getPlaca().equals(placa)) {
-                String descricao = String.format("%s\t%s\t%s\t%s",                       
-                        item.getDatahora().getTime().toString(),
-                        item.getEvento(),
-                        item.getMatricula(),
-                        item.getPlaca());
-                relatorio.add(new ItemListaCadastro(descricao));
-            }
-        }
-        return relatorio;
-    }
-
 }

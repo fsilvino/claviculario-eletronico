@@ -5,6 +5,7 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.PlacaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
      * @return Lista das descrições para imprimir a lista na tela
      */
     @Override
-    public List<ItemListaCadastro> getListaItensCadastro() {
-        List<ItemListaCadastro> lista = new ArrayList<>();
+    public List<Listavel> getListaItensCadastro() {
+        List<Listavel> lista = new ArrayList<>();
         for (Veiculo veiculo : itens) {
             lista.add(new ItemListaCadastro(veiculo.getPlaca() + "\t" + veiculo.getModelo()));
         }
@@ -166,6 +167,15 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
             throw new PlacaNaoCadastradaException(placa);
         }
         return veiculo;
+    }
+    
+     /**
+     * Pesquisa o veículo pela placa e o retorna
+     * @param placa Placa do veiculo no formato AAA-9999
+     * @return True se o veiculo existe na lista
+     */ 
+    public boolean veiculoExiste(String placa) {
+        return findVeiculoPelaPlaca(placa) != null;
     }
     
 }

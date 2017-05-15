@@ -7,6 +7,7 @@ import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.CadastroInvalidoPermissaoUsoVeiculoDiretoria;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaPermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
     }
 
     @Override
-    public List<ItemListaCadastro> getListaItensCadastro() {
+    public List<Listavel> getListaItensCadastro() {
         throw new RuntimeException("Use exibeListaPermissoes!");
     }
     
@@ -76,14 +77,14 @@ public class ControladorPermissaoUsoVeiculo extends ControladorCadastro<TelaPerm
         itens.remove(permissao);
     }
     
-    public List<ItemListaCadastro> getListaPermissoes(int matricula) throws Exception {
+    public List<Listavel> getListaPermissoes(int matricula) throws Exception {
         Funcionario funcionario = ControladorFuncionario.getInstance().getFuncionarioPelaMatricula(matricula);
         
         if (funcionario.getCargo() == Cargo.DIRETORIA) {
             throw new CadastroInvalidoPermissaoUsoVeiculoDiretoria();
         }
         
-        List<ItemListaCadastro> lista = new ArrayList<>();
+        List<Listavel> lista = new ArrayList<>();
         for (PermissaoUsoVeiculo permissao : itens) {
             if (permissao.getFuncionario().getMatricula() == matricula) {
                 lista.add(new ItemListaCadastro(permissao.getVeiculo().getPlaca()+"\t"+permissao.getVeiculo().getModelo()));

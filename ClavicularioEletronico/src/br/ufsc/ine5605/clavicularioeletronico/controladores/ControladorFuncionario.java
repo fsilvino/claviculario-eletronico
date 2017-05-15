@@ -5,6 +5,7 @@ import br.ufsc.ine5605.clavicularioeletronico.entidades.Funcionario;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaNaoCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.telas.TelaFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
      * @return Lista dos itens
      */
     @Override
-    public List<ItemListaCadastro> getListaItensCadastro() {
-        List<ItemListaCadastro> lista = new ArrayList<>();
+    public List<Listavel> getListaItensCadastro() {
+        List<Listavel> lista = new ArrayList<>();
         for (Funcionario funcionario : itens) {
             lista.add(new ItemListaCadastro(funcionario.getMatricula() + "\t" + funcionario.getNome()));
         }
@@ -167,6 +168,16 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
             throw new MatriculaNaoCadastradaException(matricula);
         }
         return funcionario;
+    }
+    
+     /**
+     * Verifica se o funcionário existe
+     * @param matricula Matrícula a ser pesquisada
+     * @return true se o funcionário existe, false se não foi encontrado
+     */
+    
+    public boolean funcionarioExiste(int matricula) {
+        return findFuncionarioPelaMatricula(matricula) != null;
     }
     
 }

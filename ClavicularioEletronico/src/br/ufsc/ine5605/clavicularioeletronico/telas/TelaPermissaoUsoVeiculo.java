@@ -1,7 +1,7 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorPermissaoUsoVeiculo;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
+import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
 /**
  *
@@ -80,7 +80,7 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
     public void exibeLista() {
         try {
             System.out.println("-------------------Permissoes---------------------");
-            for (ItemListaCadastro item: ControladorPermissaoUsoVeiculo.getInstance().getListaPermissoes(inputMatricula())) {
+            for (Listavel item: ControladorPermissaoUsoVeiculo.getInstance().getListaPermissoes(inputMatricula())) {
                 System.out.println(item.getDescricao());
             }
             System.out.println("--------------------------------------------------");
@@ -88,24 +88,5 @@ public class TelaPermissaoUsoVeiculo extends TelaCadastro {
             System.out.println(e.getMessage());
         }
         solicitaEnterParaContinuar();
-    }
-    
-    private String inputPlaca() {
-        System.out.println("Digite a placa do veiculo. Ex: (AAA-9999): ");
-        String placa = this.teclado.nextLine();
-        //if (!placa.matches("[A-Z]{3}-{1}\\d{4}")) {
-        //    System.out.println("A placa deve ser digitada no seguinte modelo: AAA-9999");
-        //}
-        return placa;
-    }
-    
-    private int inputMatricula() {
-        System.out.println("Digite a matricula: ");
-        String input = this.teclado.nextLine();
-        int matricula = -1;
-        if (input.matches("[0-9]")) {
-            matricula = Integer.parseInt(input);
-        }
-        return matricula;
     }
 }
