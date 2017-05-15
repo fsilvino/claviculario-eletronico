@@ -84,7 +84,7 @@ public class ControladorClaviculario {
                  if (!ControladorPermissaoUsoVeiculo.getInstance().permissaoExiste(funcionario, veiculo)) {
                     funcionario.incrementaNumeroTentativasSemPermissao();
                     this.novoEvento(Evento.PERMISSAO_INSUFICIENTE, matricula, "");
-                    if (funcionario.getNumeroTentativasSemPermissao() >= 3) {
+                    if (funcionario.getNumeroTentativasSemPermissao() > 3) {
                         funcionario.setBloqueado(true);
                         this.novoEvento(Evento.ACESSO_BLOQUEADO, matricula, veiculo.getPlaca());
                         throw new Exception("Usuario bloqueado por excesso de tentativas sem permissao!");
