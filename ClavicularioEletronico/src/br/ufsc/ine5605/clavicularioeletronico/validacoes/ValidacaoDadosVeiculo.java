@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufsc.ine5605.clavicularioeletronico.validacoes;
 
 /**
@@ -10,6 +5,10 @@ package br.ufsc.ine5605.clavicularioeletronico.validacoes;
  * @author Gabriel
  */
 public class ValidacaoDadosVeiculo {
+    
+    private ValidacaoDadosVeiculo() {
+        
+    }
 
     public static boolean validaPlaca(String placa) throws Exception {
         if (!placa.matches("[A-Z]{3}-{1}\\d{4}")) {
@@ -25,8 +24,8 @@ public class ValidacaoDadosVeiculo {
         return true;
     }
     
-    public static boolean validaMarca(String modelo) throws Exception {
-        if (!modelo.matches("^[^ ][a-zA-Z0-9 ]+")) {
+    public static boolean validaMarca(String marca) throws Exception {
+        if (!marca.matches("^[^ ][a-zA-Z0-9 ]+")) {
             throw new Exception("Você deve digitar a marca do carro.");
         }
         return true;

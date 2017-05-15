@@ -3,6 +3,7 @@ package br.ufsc.ine5605.clavicularioeletronico.controladores;
 
 import br.ufsc.ine5605.clavicularioeletronico.entidades.EventoClaviculario;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Funcionario;
+import br.ufsc.ine5605.clavicularioeletronico.entidades.PermissaoUsoVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.SaidaVeiculo;
 import br.ufsc.ine5605.clavicularioeletronico.entidades.Veiculo;
 import br.ufsc.ine5605.clavicularioeletronico.enums.Cargo;
@@ -45,8 +46,6 @@ public class ControladorClaviculario {
 
     public void inicia() {
         tela.exibeMenu();
-       // retirar chave, devolver chave
-       //relatorio de acessos
     }
     
     public Veiculo retirarChave(int matricula) throws Exception {
@@ -65,12 +64,17 @@ public class ControladorClaviculario {
             throw new Exception("Funcionario encontra-se bloqueado!");
         }
  
-        Veiculo veiculo;
-        if (funcionario.getCargo() == Cargo.DIRETORIA && ControladorVeiculo.getInstance().getTotalVeiculos() == 1) {
+        Veiculo veiculo = null;
+        if (funcionario.getCargo() == Cargo.DIRETORIA) {
             veiculo = ControladorVeiculo.getInstance().getVeiculoQuandoUnico();
-        } else if (funcionario.getCargo() != Cargo.DIRETORIA && ControladorPermissaoUsoVeiculo.getInstance().getPermissoesFuncionario(funcionario.getMatricula()).size() == 1) {
-            veiculo = ControladorPermissaoUsoVeiculo.getInstance().getPermissoesFuncionario(funcionario.getMatricula()).get(0).getVeiculo();
         } else {
+            List<PermissaoUsoVeiculo> permissoes = ControladorPermissaoUsoVeiculo.getInstance().getPermissoesFuncionario(funcionario.getMatricula());
+            if (permissoes.size() == 1) {
+                veiculo = permissoes.get(0).getVeiculo();
+            }
+        }
+        
+        if (veiculo == null) {
             String placa = tela.inputPlaca();
             veiculo = ControladorVeiculo.getInstance().getVeiculoPelaPlaca(placa);
         }
@@ -98,8 +102,6 @@ public class ControladorClaviculario {
                                               veiculo.getPlaca()));
         }
     }
-        
-    
     
     public void devolverVeiculo() throws Exception {
         int matricula = this.tela.inputMatricula();
@@ -142,8 +144,13 @@ public class ControladorClaviculario {
         
     }
     
+<<<<<<< HEAD
+    private void novaSaida(Veiculo veiculo, Funcionario funcionario) {
+        Calendar dataHora = Calendar.getInstance();         //verificar como pegar a hora
+=======
     private void novaSaida(Veiculo veiculo, Funcionario funcionario){
         Calendar dataHora = Calendar.getInstance();         
+>>>>>>> master
         SaidaVeiculo novaSaida = new SaidaVeiculo(veiculo, funcionario, dataHora);
         this.veiculosFora.add(novaSaida);
         this.novoEvento(Evento.ACESSO_PERMITIDO, funcionario.getMatricula(), veiculo.getPlaca());
@@ -155,7 +162,7 @@ public class ControladorClaviculario {
          for (EventoClaviculario item : log) {
              if (item.getEvento().equals(evento)) {
                  String descricao = String.format("%s\t%s\t%s\t%s",                       
-                         item.getDatahora().getTime().toString(),
+                         item.getDataHora().getTime().toString(),
                          item.getEvento(),
                          item.getMatricula(),
                          item.getPlaca());
@@ -171,7 +178,7 @@ public class ControladorClaviculario {
          for (EventoClaviculario item : log) {
              if (item.getMatricula() == matricula) {
                  String descricao = String.format("%s\t%s\t%s\t%s",                       
-                         item.getDatahora().getTime().toString(),
+                         item.getDataHora().getTime().toString(),
                          item.getEvento(),
                          item.getMatricula(),
                          item.getPlaca());
@@ -187,7 +194,7 @@ public class ControladorClaviculario {
          for (EventoClaviculario item : log) {
              if (item.getPlaca().equals(placa)) {
                  String descricao = String.format("%s\t%s\t%s\t%s",                       
-                         item.getDatahora().getTime().toString(),
+                         item.getDataHora().getTime().toString(),
                          item.getEvento(),
                          item.getMatricula(),
                          item.getPlaca());
@@ -197,12 +204,20 @@ public class ControladorClaviculario {
          return relatorio;
      }
      
+<<<<<<< HEAD
+     public List<Listavel> geraRelatorioCompleto() {
+=======
     public List<Listavel> geraRelatorioCompleto() {
+>>>>>>> master
          
         List<Listavel> relatorio = new ArrayList();
         for (EventoClaviculario item : log) {
             String descricao = String.format("%s\t%s\t%s\t%s",                       
+<<<<<<< HEAD
+                    item.getDataHora().getTime().toString(),
+=======
                     item.getDatahora().getTime().toString(),
+>>>>>>> master
                     item.getEvento(),
                     item.getMatricula(),
                     item.getPlaca());
