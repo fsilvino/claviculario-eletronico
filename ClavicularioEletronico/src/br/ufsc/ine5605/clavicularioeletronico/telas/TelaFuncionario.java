@@ -3,7 +3,6 @@ package br.ufsc.ine5605.clavicularioeletronico.telas;
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorFuncionario;
 import br.ufsc.ine5605.clavicularioeletronico.excecoes.MatriculaJaCadastradaException;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.DadosFuncionario;
-import br.ufsc.ine5605.clavicularioeletronico.transferencias.ItemListaCadastro;
 import br.ufsc.ine5605.clavicularioeletronico.transferencias.Listavel;
 
 public class TelaFuncionario extends TelaCadastro {

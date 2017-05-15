@@ -37,103 +37,153 @@ public abstract class TelaBase {
         }
         return opcao;
     }
-    
-    public int inputMatricula() throws Exception {
-        System.out.println("Digite a matricula: ");
-        String input = this.teclado.nextLine();
+
+    public int inputMatricula() throws Exception {       
+        String input;
+        int tentativa = 0;
         int matricula = -1;
-        if (ValidacaoDadosFuncionario.validaMatricula(input)) {
-            matricula = Integer.parseInt(input);
+        while (tentativa < 3) {
+            System.out.println("Digite a matricula: ");
+            input = this.teclado.nextLine();
+            if (ValidacaoDadosFuncionario.validaMatricula(input)) {
+                matricula = Integer.parseInt(input);
+                return matricula;
+            }
+            tentativa++;
         }
-        return matricula;
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public String inputNome() throws Exception {
-        System.out.println("Digite o nome completo do funcionario: ");
-        String nome = this.teclado.nextLine();
-        ValidacaoDadosFuncionario.validaNome(nome);
-        return nome;
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite o nome do funcionario: ");
+            String nome = this.teclado.nextLine();
+            if (ValidacaoDadosFuncionario.validaNome(nome)) {
+                return nome;
+            }
+            tentativa++;
+        }
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public Date inputDataNascimento() throws Exception {
-        System.out.println("Digite a data de nascimento do funcionário (dd/mm/aaaa): ");
-        String data = this.teclado.nextLine();
-        ValidacaoDadosFuncionario.validaDataNascimento(data);
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        int tentativa = 0;
         Date nascimento = null;
-        try {
-            nascimento = formato.parse(data);
-        } catch (ParseException e) {            
-        }
-        
-        return nascimento;
+        while (tentativa < 3) {
+            System.out.println("Digite a data de nascimento do funcionário (dd/mm/aaaa): ");
+            String data = this.teclado.nextLine();
+            if (ValidacaoDadosFuncionario.validaDataNascimento(data)) {
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    nascimento = formato.parse(data);
+                } catch (ParseException e) {            
+                }
+                return nascimento;
+            }
+            tentativa++;  
+        }        
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public String inputTelefone() throws Exception {
-        System.out.println("Digite o telefone do funcionário: ");
-        String telefone = this.teclado.nextLine();
-        ValidacaoDadosFuncionario.validaTelefone(telefone);
-        return telefone;
-        
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite o telefone do funcionário: ");
+            String telefone = this.teclado.nextLine();
+            if (ValidacaoDadosFuncionario.validaTelefone(telefone)) {
+                return telefone;    
+            }
+            tentativa++;            
+        }
+        throw new Exception("Numero de tentativas excedido!");     
     }
     
     public Cargo inputCargo() throws Exception{
-        System.out.println("Digite o cargo do funcionário");
-        System.out.println("1 - Diretoria");       
-        System.out.println("2 - Motorista:");
-        String input = this.teclado.nextLine();
-        int opcao = 0;
-        if (ValidacaoDadosFuncionario.validaCargo(input)) {
-            opcao = Integer.parseInt(input);
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite o cargo do funcionário");
+            System.out.println("1 - Diretoria");       
+            System.out.println("2 - Motorista:");
+            String input = this.teclado.nextLine();
+            int opcao = 0;
+            if (ValidacaoDadosFuncionario.validaCargo(input)) {
+                opcao = Integer.parseInt(input);
+                switch (opcao) {
+                    case 1: return Cargo.DIRETORIA;
+
+                    case 2: return Cargo.MOTORISTA;
+                }   
+                return null;
+            }
+            tentativa++;
         }
-        switch (opcao) {
-            case 1: return Cargo.DIRETORIA;
-            
-            case 2: return Cargo.MOTORISTA;
-        }   
-        
-        return null;
+        throw new Exception("Numero de tentativas excedido!"); 
     }
 
     public String inputPlaca() throws Exception{
-        System.out.println("Digite a placa do veiculo. Ex: (AAA-9999): ");
-        String placa = this.teclado.nextLine();
-        ValidacaoDadosVeiculo.validaPlaca(placa);
-        return placa;
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite a placa do veiculo. Ex: (AAA-9999): ");
+            String placa = this.teclado.nextLine();
+            if (ValidacaoDadosVeiculo.validaPlaca(placa)) {
+                return placa;
+            }
+            tentativa++;
+        }
+        throw new Exception("Numero de tentativas excedido!"); 
     }
     
     public String inputModelo() throws Exception{
-        System.out.println("Digite o modelo do veiculo: ");
-        String modelo = this.teclado.nextLine();
-        ValidacaoDadosVeiculo.validaModelo(modelo);
-        return modelo;
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite o modelo do veiculo: ");
+            String modelo = this.teclado.nextLine();
+            if (ValidacaoDadosVeiculo.validaModelo(modelo)) {
+                return modelo;    
+            }
+            tentativa++;                      
+        }
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public String inputMarca() throws Exception{
-        System.out.println("Digite a marca do veiculo: ");
-        String marca = this.teclado.nextLine();
-        ValidacaoDadosVeiculo.validaMarca(marca);
-        return marca;
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite a marca do veiculo: ");
+            String marca = this.teclado.nextLine();
+            if (ValidacaoDadosVeiculo.validaMarca(marca)) {
+            return marca;    
+            }
+            tentativa++;            
+        }
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public int inputAno() throws Exception{
-        System.out.println("Digite o ano do veiculo: ");
-        String input = this.teclado.nextLine();
-        int ano = 0;
-        if (ValidacaoDadosVeiculo.validaAno(input)) {
-            ano = Integer.parseInt(input);
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite o ano do veiculo: ");
+            String input = this.teclado.nextLine();
+            if (ValidacaoDadosVeiculo.validaAno(input)) { 
+                return Integer.parseInt(input);
+            }
+            tentativa++;
         }
-        return ano;
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public int inputQuilometragemAtual() throws Exception{
-        System.out.println("Digite a quilometragem atual do veiculo: ");
-        String input = this.teclado.nextLine();
-        int quilometragemAtual = 0;
-        if (ValidacaoDadosVeiculo.validaQuilometragem(input)) {
-            quilometragemAtual = Integer.parseInt(input);
+        int tentativa = 0;
+        while (tentativa < 3) {
+            System.out.println("Digite a quilometragem atual do veiculo: ");
+            String input = this.teclado.nextLine();
+            if (ValidacaoDadosVeiculo.validaQuilometragem(input)) {
+                return Integer.parseInt(input);
+            }
+            tentativa++;
         }
-        return quilometragemAtual;
+        throw new Exception("Numero de tentativas excedido!");
     }
     
     public String inputConfirmacao() {
