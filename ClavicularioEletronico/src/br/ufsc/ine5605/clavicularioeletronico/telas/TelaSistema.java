@@ -1,7 +1,6 @@
 package br.ufsc.ine5605.clavicularioeletronico.telas;
 
 import br.ufsc.ine5605.clavicularioeletronico.controladores.ControladorSistema;
-import java.util.Calendar;
 
 /**
  * 
@@ -19,17 +18,10 @@ public class TelaSistema extends TelaBase {
             System.out.println("-----------------Menu Principal------------------");
             System.out.println("1 - Funcionarios");
             System.out.println("2 - Veiculos");
-            System.out.println("3 - Permissoes");
-            System.out.println("4 - Claviculario Eletronico");
+            System.out.println("3 - Claviculario Eletronico");
             System.out.println("0 - Sair do sistema");
-            System.out.println("-------------------------------------------------");
-            System.out.print("Opcao escolhida: ");
-            try {
-                opcao = Integer.parseInt(this.teclado.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("A opcao precisa ser um numero!");
-            }
             
+            opcao = inputOpcao();
             if (opcao != 0) {
                 switch (opcao) {
                     case 1:
@@ -39,9 +31,6 @@ public class TelaSistema extends TelaBase {
                         ControladorSistema.getInstance().abreCadastroVeiculo();
                         break;
                     case 3:
-                        ControladorSistema.getInstance().abreCadastroPermissaoUsoVeiculo();
-                        break;
-                    case 4:
                         ControladorSistema.getInstance().abreClaviculario();
                         break;
                     default:

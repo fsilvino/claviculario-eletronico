@@ -25,6 +25,19 @@ public abstract class TelaBase {
         this.teclado.nextLine();
     }
     
+    public int inputOpcao() {
+        System.out.println("-------------------------------------------------");
+        System.out.print("Opção escolhida: ");
+        int opcao;
+        try {
+            opcao = Integer.parseInt(this.teclado.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("A opcao precisa ser um numero!");
+            opcao = -1;
+        }
+        return opcao;
+    }
+    
     public int inputMatricula() throws Exception {
         System.out.println("Digite a matricula: ");
         String input = this.teclado.nextLine();

@@ -178,4 +178,15 @@ public class ControladorVeiculo extends ControladorCadastro<TelaVeiculo, Veiculo
         return findVeiculoPelaPlaca(placa) != null;
     }
     
+    /**
+     * Retorna o veículo quando existe apenas um cadastrado
+     * @return Retorna o veículo caso seja o único cadastrado, caso contrário retorna null
+     */
+    public Veiculo getVeiculoQuandoUnico() {
+        if (this.itens.size() == 1) {
+            return this.itens.get(0);
+        }
+        return null;
+    }
+    
 }

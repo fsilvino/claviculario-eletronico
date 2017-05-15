@@ -11,16 +11,7 @@ public class Funcionario {
     private String telefone;
     private boolean bloqueado;
     private Cargo cargo;
-    private String endereco;
     private int numeroTentativasSemPermissao;
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
 
     public void incrementaNumeroTentativasSemPermissao() {
         this.numeroTentativasSemPermissao++;

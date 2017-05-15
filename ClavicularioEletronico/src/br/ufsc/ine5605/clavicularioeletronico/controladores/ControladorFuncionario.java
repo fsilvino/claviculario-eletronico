@@ -179,5 +179,9 @@ public class ControladorFuncionario extends ControladorCadastro<TelaFuncionario,
     public boolean funcionarioExiste(int matricula) {
         return findFuncionarioPelaMatricula(matricula) != null;
     }
+
+    public void abreCadastroPermissaoUsoVeiculo() {
+        ControladorPermissaoUsoVeiculo.getInstance().inicia();
+    }
     
 }
